@@ -64,7 +64,7 @@ For running the server file on you can use this command.
 
 [**Md.Tariquzzaman**](https://github.com/Tariquzzaman-faisal "Md. Tariquzzaman")<br>
 [**Tanvir Hossain**](https://github.com/Trex1102 "Tanvir Hossain")<br>
-[**Mohammad Sami Khan**](https://github.com/ "Mohammad Sami Khan")
+[**Mohammad Sami Khan**](https://github.com/SamiKhan-cse19 "Mohammad Sami Khan")
 
 
 ## 🤝 Support
