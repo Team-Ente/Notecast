@@ -1,7 +1,7 @@
 <h1 align="center">Notecast</h1>
 
 <p align="center">A Note Organizing App</p>
-![alt text](https://github.com/Team-Ente/Notecast/blob/master/src/Image/2.png?raw=true)
+![image](https://i.ibb.co/jM0H6sK/2.png)
 ## Links
 
 - [Repo](https://github.com/Team-Ente/Notecast "Notecast Repo")
