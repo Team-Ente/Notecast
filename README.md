@@ -62,15 +62,10 @@ For running the server file on you can use this command.
 
 ## Author
 
-[**Md.Tariquzzaman**](https://github.com/Trex1102 "Md. Tariquzzaman")<br>
-[**Tanvir Hossain*](https://github.com/Trex1102 "Tanvir Hossain")*<br>
+[**Md.Tariquzzaman**](https://github.com/Tariquzzaman-faisal "Md. Tariquzzaman")<br>
+[**Tanvir Hossain**](https://github.com/Trex1102 "Tanvir Hossain")<br>
 [**Mohammad Sami Khan**](https://github.com/ "Mohammad Sami Khan")
 
-- [Profile](https://github.com/Trex1102 "Tanvir Hossain")
-- [Email](mailto:tanvirhossain@iut-dhaka.edu?subject=Hi "Hi!")
-
-- [Profile](https://github.com/ "Mohammad Sami Khan")
-- [Email](mailto:samikhan@iut-dhaka.edu?subject=Hi "Hi!")
 
 ## 🤝 Support
 
