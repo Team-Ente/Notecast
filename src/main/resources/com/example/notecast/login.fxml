@@ -14,7 +14,7 @@
    <left>
       <AnchorPane prefHeight="400.0" prefWidth="300.0" style="-fx-background-color: #f1f0f0;" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="TOP_CENTER" layoutX="-6.0" layoutY="89.0" prefHeight="37.0" prefWidth="300.0" text="Notecast" textFill="#0d2137">
+            <Label fx:id="Title" alignment="TOP_CENTER" layoutX="-6.0" layoutY="89.0" onMouseClicked="#loginButtonAction" prefHeight="37.0" prefWidth="300.0" text="Notecast" textFill="#0d2137">
                <font>
                   <Font name="Manjari Regular" size="33.0" />
                </font>
@@ -29,20 +29,28 @@
    <right>
       <AnchorPane prefHeight="400.0" prefWidth="300.0" style="-fx-background-color: WHITE;" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="34.0" layoutY="94.0" text="Username" textFill="#0d2137">
+            <Label layoutX="33.0" layoutY="100.0" text="Username" textFill="#0d2137">
                <font>
-                  <Font name="Umpush" size="16.0" />
+                  <Font name="Manjari Regular" size="16.0" />
                </font>
             </Label>
             <Label layoutX="35.0" layoutY="160.0" text="Password" textFill="#0d2137">
                <font>
-                  <Font name="Umpush" size="16.0" />
+                  <Font name="Manjari Regular" size="16.0" />
                </font>
             </Label>
-            <PasswordField fx:id="passwordTextField" layoutX="114.0" layoutY="157.0" promptText="PasswordField" style="-fx-border-color: grey; -fx-border-width: 0 0 1 0;; -fx-background-color: transparent;" />
-            <TextField fx:id="usernameTextField" layoutX="114.0" layoutY="98.0" promptText="Username" style="-fx-border-color: grey; -fx-border-width: 0 0 1 0;; -fx-background-color: transparent;" />
-            <Button fx:id="loginButton" layoutX="35.0" layoutY="227.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="230.0" style="-fx-background-radius: 15px; -fx-background-color: #38b6ff;" text="Login" textFill="WHITE" />
-            <Button fx:id="cancelButton" layoutX="35.0" layoutY="277.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="230.0" style="-fx-background-radius: 15px; -fx-background-color: #38b6ff;" text="Cancel" textFill="WHITE" />
+            <PasswordField fx:id="userpasswordField" layoutX="114.0" layoutY="157.0" promptText="PasswordField" style="-fx-border-color: grey; -fx-border-width: 0 0 1 0; -fx-background-color: transparent; -fx-font-family: Manjari;" />
+            <TextField fx:id="usernameTextField" layoutX="114.0" layoutY="98.0" promptText="Username" style="-fx-border-color: grey; -fx-border-width: 0 0 1 0; -fx-background-color: transparent; -fx-font-family: Manjari;">
+               <font>
+                  <Font name="Manjari Regular" size="13.0" />
+               </font></TextField>
+            <Button fx:id="loginButton" layoutX="35.0" layoutY="227.0" mnemonicParsing="false" onAction="#loginButtonAction" prefHeight="30.0" prefWidth="230.0" style="-fx-background-radius: 15px; -fx-background-color: #38b6ff;" text="Login" textFill="WHITE" />
+            <Button fx:id="cancelButton" layoutX="35.0" layoutY="277.0" mnemonicParsing="false" onAction="#cancelbuttonAction" prefHeight="30.0" prefWidth="230.0" style="-fx-background-radius: 15px; -fx-background-color: #38b6ff;" text="Cancel" textFill="WHITE" />
+            <Label fx:id="Error" alignment="CENTER" layoutY="54.0" prefHeight="19.0" prefWidth="299.0" style="-fx-font-family: Manjari;">
+               <font>
+                  <Font name="Manjari Regular" size="13.0" />
+               </font>
+            </Label>
          </children></AnchorPane>
    </right>
 </BorderPane>
