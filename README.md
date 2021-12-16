@@ -62,8 +62,8 @@ For running the server file on you can use this command.
 
 ## Author
 
-**Md.Tariquzzaman**
-**Tanvir Hossain**
+**Md.Tariquzzaman**<br>
+**Tanvir Hossain**<br>
 **Mohammad Sami Khan**
 
 - [Profile](https://github.com/Trex1102 "Md. Tariquzzaman")
