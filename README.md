@@ -1,6 +1,7 @@
 <h1 align="center">Notecast</h1>
 
 <p align="center">A Note Organizing App</p>
+
 ## Links
 
 - [Repo](https://github.com/Team-Ente/Notecast "Notecast Repo")
@@ -23,13 +24,13 @@ Screenshots to be added here
 - JavaFx
 - Scene Builder
 - MySQL
-- Apache PDFbox
+- [Free Dictionary API](https://dictionaryapi.dev/)
 
 ## Future Updates
 
 - [ ] Reliable Storage
 
-## Author
+## Authors
 
 [**Md.Tariquzzaman**](https://github.com/Tariquzzaman-faisal "Md. Tariquzzaman")<br>
 [**Tanvir Hossain**](https://github.com/Trex1102 "Tanvir Hossain")<br>

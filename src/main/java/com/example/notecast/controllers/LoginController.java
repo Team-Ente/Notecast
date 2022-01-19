@@ -1,5 +1,6 @@
-package com.example.notecast;
+package com.example.notecast.controllers;
 
+import com.example.notecast.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -40,7 +41,7 @@ public class LoginController {
     {
         if(usernameTextField.getText().isBlank() || usernameTextField.getText().isBlank()) System.out.println("Genjam");
         else {
-            Parent root = FXMLLoader.load(getClass().getResource("editor.fxml"));
+            Parent root = FXMLLoader.load(App.class.getResource("editor.fxml"));
             stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);

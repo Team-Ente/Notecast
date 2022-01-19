@@ -1,4 +1,4 @@
-package com.example.notecast;
+package com.example.notecast.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

@@ -6,7 +6,7 @@
 <?import javafx.scene.web.HTMLEditor?>
 <?import javafx.scene.web.WebView?>
 
-<AnchorPane prefHeight="738.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.notecast.EditorController">
+<AnchorPane prefHeight="738.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.notecast.controllers.EditorController">
    <children>
       <HTMLEditor fx:id="htmlEditor" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" layoutY="10.0" prefHeight="215.0" prefWidth="600.0" />
       <TextArea fx:id="textarea" layoutY="249.0" prefHeight="200.0" prefWidth="600.0" wrapText="true" />
