@@ -1,4 +1,4 @@
-package com.example.notecast.models;
+package com.example.notecast.models.dictionary;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

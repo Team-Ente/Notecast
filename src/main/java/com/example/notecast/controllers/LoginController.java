@@ -43,8 +43,7 @@ public class LoginController {
         if(usernameTextField.getText().isBlank() || userpasswordField.getText().isBlank()) System.out.println("Genjam");
         else {
             var login = DatabaseHandler.login(usernameTextField.getText(), userpasswordField.getText());
-
-            if(login == true) {
+            if(login) {
                 Parent root = FXMLLoader.load(App.class.getResource("editor.fxml"));
                 stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
                 scene = new Scene(root);
