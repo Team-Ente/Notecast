@@ -1,6 +1,7 @@
 package com.example.notecast.controllers;
 
 import com.example.notecast.App;
+import com.example.notecast.utils.DatabaseHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -39,13 +40,17 @@ public class LoginController {
     }
     public void loginButtonAction(ActionEvent e) throws IOException
     {
-        if(usernameTextField.getText().isBlank() || usernameTextField.getText().isBlank()) System.out.println("Genjam");
+        if(usernameTextField.getText().isBlank() || userpasswordField.getText().isBlank()) System.out.println("Genjam");
         else {
-            Parent root = FXMLLoader.load(App.class.getResource("editor.fxml"));
-            stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
+            var login = DatabaseHandler.login(usernameTextField.getText(), userpasswordField.getText());
+
+            if(login == true) {
+                Parent root = FXMLLoader.load(App.class.getResource("editor.fxml"));
+                stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            }
         }
     }
 }
