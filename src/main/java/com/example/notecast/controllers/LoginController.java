@@ -8,10 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
@@ -42,13 +39,31 @@ public class LoginController {
     {
         if(usernameTextField.getText().isBlank() || userpasswordField.getText().isBlank()) System.out.println("Genjam");
         else {
-            var login = DatabaseHandler.login(usernameTextField.getText(), userpasswordField.getText());
+//            var login = DatabaseHandler.login(usernameTextField.getText(), userpasswordField.getText());
+            var login = true;
+
             if(login) {
-                Parent root = FXMLLoader.load(App.class.getResource("editor.fxml"));
+                FXMLLoader loader = new FXMLLoader(App.class.getResource("editor.fxml"));
+                Parent root = loader.load();
+                EditorController controller = loader.getController();
                 stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
                 scene = new Scene(root);
                 stage.setScene(scene);
                 stage.show();
+                stage.setOnCloseRequest(windowEvent -> {
+                    windowEvent.consume();
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Exit");
+                    alert.setHeaderText("Save and Exit?");
+                    if(alert.showAndWait().get() == ButtonType.OK) {
+                        try {
+                            controller.exit();
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
+                        stage.close();
+                    }
+                });
             }
         }
     }

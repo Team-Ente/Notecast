@@ -21,10 +21,12 @@ public class Definition {
     public static Definition createDefinitionFromJSONObject(JSONObject json) {
         ArrayList<String> synList = new ArrayList<>();
         ArrayList<String> antList = new ArrayList<>();
-        JSONArray syns = json.getJSONArray("synonyms");
-        for (int i = 0; i < syns.length(); i++) synList.add(syns.getString(i));
-        JSONArray ants = json.getJSONArray("antonyms");
-        for (int i = 0; i < ants.length(); i++) antList.add(ants.getString(i));
+        JSONArray syns = json.optJSONArray("synonyms");
+        if(syns != null)
+            for (int i = 0; i < syns.length(); i++) synList.add(syns.getString(i));
+        JSONArray ants = json.optJSONArray("antonyms");
+        if(ants != null)
+            for (int i = 0; i < ants.length(); i++) antList.add(ants.getString(i));
         return new Definition(json.optString("definition"),json.optString("example", ""), synList, antList);
     }
 
