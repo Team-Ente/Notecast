@@ -1,26 +1,15 @@
 package com.example.notecast.controllers;
 
-import com.example.notecast.models.dictionary.Definition;
-import com.example.notecast.models.dictionary.Meaning;
 import com.example.notecast.models.dictionary.SearchResult;
-import javafx.event.ActionEvent;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
-import javafx.stage.Stage;
 import javafx.scene.web.HTMLEditor;
 
 import java.io.*;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.ResourceBundle;
-import java.util.Scanner;
-
-import static javafx.application.Application.launch;
+import java.util.concurrent.ExecutionException;
 
 public class EditorController {
     @FXML
@@ -44,12 +33,8 @@ public class EditorController {
         String word = searchInput.getText();
         System.out.println(word);
         try {
-            SearchResult result = new SearchResult(word);
-            for (Meaning mean : result.getMeanings()) {
-                for (Definition def : mean.definitions)
-                    listView.getItems().add(def.definitionText);
-            }
-        } catch (InterruptedException | IOException e) {
+            new SearchResult(word, listView);
+        } catch (InterruptedException | IOException | UnirestException | ExecutionException e) {
             e.printStackTrace();
         }
     }
