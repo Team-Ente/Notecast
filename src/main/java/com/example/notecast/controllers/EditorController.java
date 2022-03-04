@@ -3,8 +3,7 @@ package com.example.notecast.controllers;
 import com.example.notecast.models.dictionary.SearchResult;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import javafx.fxml.FXML;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.web.HTMLEditor;
 
 import java.io.*;
@@ -24,13 +23,17 @@ public class EditorController {
 //    private WebView webview;
 
     @FXML
-    private TextField searchInput;
+    Button dictionaryButton, googleButton, hideButton;
+    @FXML
+    private SplitPane leftRightSplitPane, topBottomSplitPane;
+    @FXML
+    private TextField wordSearchInput, googleSearchInput;
     @FXML
     private ListView<String> listView;
     @FXML
-    void showResults() {
+    void showDictionarySearchResults() {
         listView.getItems().clear();
-        String word = searchInput.getText();
+        String word = wordSearchInput.getText();
         System.out.println(word);
         try {
             new SearchResult(word, listView);
@@ -38,6 +41,40 @@ public class EditorController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    void showGoogleSearchResults() {
+        String phrase = googleSearchInput.getText();
+        System.out.println(phrase);
+    }
+
+    @FXML
+    void hideRightPane() {
+        leftRightSplitPane.setDividerPosition(0, 1);
+        hideButton.setVisible(false);
+        dictionaryButton.setVisible(true);
+        googleButton.setVisible(true);
+    }
+
+    @FXML
+    void showDictionary() {
+        leftRightSplitPane.setDividerPosition(0, 0.6);
+        topBottomSplitPane.setDividerPosition(0, 1);
+        dictionaryButton.setVisible(false);
+        googleButton.setVisible(true);
+        hideButton.setVisible(true);
+    }
+
+    @FXML
+    void showGoogleSearch() {
+        leftRightSplitPane.setDividerPosition(0, 0.6);
+        topBottomSplitPane.setDividerPosition(0, 0);
+        googleButton.setVisible(false);
+        dictionaryButton.setVisible(true);
+        hideButton.setVisible(true);
+    }
+
+
 
 //    public void handleHTMLtoText(ActionEvent event) throws IOException {
 //        textarea.setText(htmlEditor.getHtmlText());
@@ -72,6 +109,7 @@ public class EditorController {
             e.printStackTrace();
         }
         try {
+            assert fileReader != null;
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String line;
             while((line=bufferedReader.readLine())!= null){

@@ -39,14 +39,14 @@
                   <Font name="Manjari Regular" size="16.0" />
                </font>
             </Label>
-            <PasswordField fx:id="userpasswordField" layoutX="114.0" layoutY="157.0" promptText="PasswordField" style="-fx-border-color: grey; -fx-border-width: 0 0 1 0; -fx-background-color: transparent; -fx-font-family: Manjari;" />
-            <TextField fx:id="usernameTextField" layoutX="114.0" layoutY="98.0" promptText="Username" style="-fx-border-color: grey; -fx-border-width: 0 0 1 0; -fx-background-color: transparent; -fx-font-family: Manjari;">
+            <TextField fx:id="usernameTextField" layoutX="122.0" layoutY="95.0" prefHeight="30.0" prefWidth="160.0" promptText="Enter Username" style="-fx-border-color: grey; -fx-border-width: 0 0 1 0; -fx-background-color: transparent; -fx-font-family: Manjari;">
                <font>
                   <Font name="Manjari Regular" size="13.0" />
                </font></TextField>
+            <PasswordField fx:id="userpasswordField" layoutX="122.0" layoutY="155.0" prefHeight="30.0" prefWidth="160.0" promptText="Enter Password" style="-fx-border-color: grey; -fx-border-width: 0 0 1 0; -fx-background-color: transparent; -fx-font-family: Manjari;" />
             <Button fx:id="loginButton" layoutX="35.0" layoutY="227.0" mnemonicParsing="false" onAction="#loginButtonAction" prefHeight="30.0" prefWidth="230.0" style="-fx-background-radius: 15px; -fx-background-color: #38b6ff;" text="Login" textFill="WHITE" />
             <Button fx:id="cancelButton" layoutX="35.0" layoutY="277.0" mnemonicParsing="false" onAction="#cancelbuttonAction" prefHeight="30.0" prefWidth="230.0" style="-fx-background-radius: 15px; -fx-background-color: #38b6ff;" text="Cancel" textFill="WHITE" />
-            <Label fx:id="Error" alignment="CENTER" layoutY="54.0" prefHeight="19.0" prefWidth="299.0" style="-fx-font-family: Manjari;">
+            <Label fx:id="errorLabel" alignment="CENTER" layoutY="54.0" prefHeight="19.0" prefWidth="299.0" style="-fx-font-family: Manjari;">
                <font>
                   <Font name="Manjari Regular" size="13.0" />
                </font>

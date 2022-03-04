@@ -19,22 +19,6 @@ import java.util.concurrent.ExecutionException;
 public class SearchResult {
 
     private static ListView<String> listView = null;
-//
-//    public String getPhonetic() {
-//        return phonetic;
-//    }
-//
-//    public String getOrigin() {
-//        return origin;
-//    }
-//
-//    public String getWord() {
-//        return word;
-//    }
-//
-//    public ArrayList<Meaning> getMeanings() {
-//        return meanings;
-//    }
 
 //    public void showResults(){
 //        System.out.println(word);
@@ -52,11 +36,6 @@ public class SearchResult {
 //    }
 
 //    private void getResults(String word) {
-//
-//        Future<HttpResponse<JsonNode>> response = NetworkHandler.getUnirestResponse(url);
-//        if(response.isDone()) {
-//            getResultFromJSONObject((JSONObject) response.get().getBody().getArray().get(0));
-//        }
 //        var response = NetworkHandler.getHttpRequestResponse(url);
 //        int len = response.body().length();
 //        getResultFromJSONObject(new JSONObject(response.body().substring(1, len-1)));
@@ -77,9 +56,5 @@ public class SearchResult {
             for (Definition def : mean.definitions)
                 listView.getItems().add(def.definitionText);
         }
-//        this.phonetic = json.optString("phonetic", "");
-//        this.origin = json.optString("origin", "");
-//        this.word = json.getString("word");
-//        this.meanings = meaningList;
     }
 }
