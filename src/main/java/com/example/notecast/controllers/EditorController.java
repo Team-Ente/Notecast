@@ -4,6 +4,7 @@ import com.example.notecast.models.dictionary.SearchResult;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.HTMLEditor;
 
 import java.io.*;
@@ -23,9 +24,11 @@ public class EditorController {
 //    private WebView webview;
 
     @FXML
-    Button dictionaryButton, googleButton, hideButton;
+    private Button dictionaryButton, googleButton, hideButton;
     @FXML
     private SplitPane leftRightSplitPane, topBottomSplitPane;
+    @FXML
+    private AnchorPane leftPane, rightPane, rightTopPane, rightBottomPane;
     @FXML
     private TextField wordSearchInput, googleSearchInput;
     @FXML
@@ -46,20 +49,34 @@ public class EditorController {
     void showGoogleSearchResults() {
         String phrase = googleSearchInput.getText();
         System.out.println(phrase);
+        // TODO: implement API call
     }
 
     @FXML
     void hideRightPane() {
+        rightPane.setMinWidth(0.0);
+        rightPane.setMaxWidth(0.0);
         leftRightSplitPane.setDividerPosition(0, 1);
         hideButton.setVisible(false);
         dictionaryButton.setVisible(true);
         googleButton.setVisible(true);
+        rightPane.setVisible(false);
     }
 
     @FXML
     void showDictionary() {
+        rightPane.setVisible(true);
+        rightTopPane.setVisible(true);
+        rightBottomPane.setVisible(false);
+
+        rightPane.setMinWidth(200.0);
+        rightPane.setMaxWidth(Double.POSITIVE_INFINITY);
+        rightBottomPane.setMaxHeight(0.0);
+        rightTopPane.setMaxHeight(Double.POSITIVE_INFINITY);
+
         leftRightSplitPane.setDividerPosition(0, 0.6);
         topBottomSplitPane.setDividerPosition(0, 1);
+
         dictionaryButton.setVisible(false);
         googleButton.setVisible(true);
         hideButton.setVisible(true);
@@ -67,8 +84,18 @@ public class EditorController {
 
     @FXML
     void showGoogleSearch() {
+        rightPane.setVisible(true);
+        rightBottomPane.setVisible(true);
+        rightTopPane.setVisible(false);
+
+        rightPane.setMinWidth(200.0);
+        rightPane.setMaxWidth(Double.POSITIVE_INFINITY);
+        rightBottomPane.setMaxHeight(Double.POSITIVE_INFINITY);
+        rightTopPane.setMaxHeight(0);
+
         leftRightSplitPane.setDividerPosition(0, 0.6);
         topBottomSplitPane.setDividerPosition(0, 0);
+
         googleButton.setVisible(false);
         dictionaryButton.setVisible(true);
         hideButton.setVisible(true);
