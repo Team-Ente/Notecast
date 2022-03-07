@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.HTMLEditor;
+import javafx.scene.web.WebView;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -14,25 +15,19 @@ import java.util.concurrent.ExecutionException;
 public class EditorController {
     @FXML
     private HTMLEditor htmlEditor;
-//    @FXML
-//    private Button htmltoText;
-//    @FXML
-//    private Button webbutton;
-//    @FXML
-//    private TextArea textarea;
-//    @FXML
-//    private WebView webview;
 
     @FXML
     private Button dictionaryButton, googleButton, hideButton;
     @FXML
     private SplitPane leftRightSplitPane, topBottomSplitPane;
     @FXML
-    private AnchorPane leftPane, rightPane, rightTopPane, rightBottomPane;
+    private AnchorPane rightPane, rightTopPane, rightBottomPane;
     @FXML
-    private TextField wordSearchInput, googleSearchInput;
+    private TextField wordSearchInput;
     @FXML
     private ListView<String> listView;
+    @FXML
+    private WebView searchView;
     @FXML
     void showDictionarySearchResults() {
         listView.getItems().clear();
@@ -43,13 +38,6 @@ public class EditorController {
         } catch (InterruptedException | IOException | UnirestException | ExecutionException e) {
             e.printStackTrace();
         }
-    }
-
-    @FXML
-    void showGoogleSearchResults() {
-        String phrase = googleSearchInput.getText();
-        System.out.println(phrase);
-        // TODO: implement API call
     }
 
     @FXML
@@ -99,6 +87,8 @@ public class EditorController {
         googleButton.setVisible(false);
         dictionaryButton.setVisible(true);
         hideButton.setVisible(true);
+
+        searchView.getEngine().load("https://google.com");
     }
 
 
