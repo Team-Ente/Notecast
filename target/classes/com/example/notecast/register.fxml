@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.notecast.controllers.RegisterController">
+   <children>
+      <Pane layoutX="269.0" prefHeight="400.0" prefWidth="330.0">
+         <children>
+            <Label layoutX="52.0" layoutY="57.0" prefHeight="0.0" prefWidth="60.0" text="Username" />
+            <Label layoutX="66.0" layoutY="111.0" text="Email" />
+            <Label layoutX="51.0" layoutY="159.0" text="Profession" />
+            <Label layoutX="53.0" layoutY="214.0" text="Password" />
+            <Label layoutX="21.0" layoutY="265.0" text="Confirm Password" />
+            <TextField fx:id="usernameTextField" layoutX="135.0" layoutY="52.0" style="-fx-border-color: grey; -fx-border-width: 0 0 1 0; -fx-background-color: transparent; -fx-font-family: Manjari;" />
+            <TextField fx:id="emailTextField" layoutX="135.0" layoutY="106.0" style="-fx-border-color: grey; -fx-border-width: 0 0 1 0; -fx-background-color: transparent; -fx-font-family: Manjari;" />
+            <TextField fx:id="professionTextField" layoutX="135.0" layoutY="153.0" style="-fx-border-color: grey; -fx-border-width: 0 0 1 0; -fx-background-color: transparent; -fx-font-family: Manjari;" />
+            <PasswordField fx:id="passwordField" layoutX="135.0" layoutY="208.0" style="-fx-border-color: grey; -fx-border-width: 0 0 1 0; -fx-background-color: transparent; -fx-font-family: Manjari;" />
+            <PasswordField fx:id="confirmpasswordField" layoutX="135.0" layoutY="267.0" style="-fx-border-color: grey; -fx-border-width: 0 0 1 0; -fx-background-color: transparent; -fx-font-family: Manjari;" />
+            <Button fx:id="registerButton" layoutX="179.0" layoutY="306.0" mnemonicParsing="false" onAction="#registerButtonAction" style="-fx-background-radius: 15px; -fx-background-color: #38b6ff;" text="Register" textFill="WHITE" />
+            <Button fx:id="cancelButton" layoutX="184.0" layoutY="340.0" mnemonicParsing="false" onAction="#cancelbuttonAction" style="-fx-background-radius: 15px; -fx-background-color: #38b6ff;" text="Cancel" textFill="WHITE" />
+         </children>
+      </Pane>
+      <Pane layoutY="-2.0" prefHeight="400.0" prefWidth="263.0">
+         <children>
+            <Label layoutX="64.0" layoutY="62.0" text="NoteCast">
+               <font>
+                  <Font size="33.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="61.0" layoutY="146.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../Image/2.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

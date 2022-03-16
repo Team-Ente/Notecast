@@ -20,6 +20,8 @@ public class LoginController {
     @FXML
     private Button loginButton;
     @FXML
+    private Button registerButton;
+    @FXML
     private Button cancelButton;
     @FXML
     private Label Error;
@@ -66,5 +68,18 @@ public class LoginController {
                 });
             }
         }
+    }
+    public void registerButtonAction(ActionEvent e) throws IOException {
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("register.fxml"));
+        Parent root = loader.load();
+        RegisterController controller = loader.getController();
+        stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+//
+
+
+
     }
 }
