@@ -1,5 +1,7 @@
 package com.example.notecast.controllers;
 
+import com.example.notecast.models.dictionary.Meaning;
+import com.example.notecast.models.dictionary.MeaningCellFactory;
 import com.example.notecast.models.dictionary.SearchResult;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import javafx.fxml.FXML;
@@ -25,7 +27,7 @@ public class EditorController {
     @FXML
     private TextField wordSearchInput;
     @FXML
-    private ListView<String> listView;
+    private ListView<Meaning> listView;
     @FXML
     private WebView searchView;
     @FXML
@@ -117,11 +119,11 @@ public class EditorController {
 //    }
 
     @FXML
-    public void initialize() {
+    private void initialize() {
         StringBuilder html = new StringBuilder();
         FileReader fileReader = null;
         try {
-            fileReader = new FileReader("text.html");
+            fileReader = new FileReader("/home/sami/Documents/html.html");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -136,10 +138,12 @@ public class EditorController {
             e.printStackTrace();
         }
         htmlEditor.setHtmlText(html.toString());
+
+        listView.setCellFactory(new MeaningCellFactory());
     }
 
     public void exit() throws IOException {
-        PrintWriter writer = new PrintWriter("text.html", StandardCharsets.UTF_8);
+        PrintWriter writer = new PrintWriter("/home/sami/Documents/html.html", StandardCharsets.UTF_8);
         writer.println(htmlEditor.getHtmlText());
         writer.close();
     }

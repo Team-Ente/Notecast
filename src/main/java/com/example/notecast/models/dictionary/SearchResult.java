@@ -18,7 +18,7 @@ import java.util.concurrent.ExecutionException;
 
 public class SearchResult {
 
-    private static ListView<String> listView = null;
+    private static ListView<Meaning> listView = null;
 
 //    public void showResults(){
 //        System.out.println(word);
@@ -41,20 +41,20 @@ public class SearchResult {
 //        getResultFromJSONObject(new JSONObject(response.body().substring(1, len-1)));
 //    }
 
-    public SearchResult(String word, ListView<String> listView) throws IOException, InterruptedException, UnirestException, ExecutionException {
+    public SearchResult(String word, ListView<Meaning> listView) throws IOException, InterruptedException, UnirestException, ExecutionException {
         SearchResult.listView = listView;
         NetworkHandler.getUnirestResponse(word);
     }
 
     public static void getResultFromJSONObject(JSONObject json) {
-        ArrayList<Meaning> meaningList = new ArrayList<>();
         JSONArray means = json.optJSONArray("meanings");
         if(means == null) throw new RuntimeException(json.getString("title"));
-        for(int i=0; i<means.length(); i++) meaningList.add(Meaning.createMeaningFromJSONObject(means.getJSONObject(i)));
+        for(int i=0; i<means.length(); i++)
+            listView.getItems().add(Meaning.createMeaningFromJSONObject(means.getJSONObject(i)));
 
-        for (Meaning mean : meaningList) {
-            for (Definition def : mean.definitions)
-                listView.getItems().add(def.definitionText);
-        }
+//1        for (Meaning mean : meaningList) {
+//            for (Definition def : mean.definitions)
+//                listView.getItems().add(def.definitionText);
+//        }
     }
 }
