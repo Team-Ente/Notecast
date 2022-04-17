@@ -15,12 +15,12 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class LoginController {
-    @FXML
-    private ImageView notecastImageview;
-    @FXML
-    private Button loginButton;
-    @FXML
-    private Button registerButton;
+//    @FXML
+//    private ImageView notecastImageview;
+//    @FXML
+//    private Button loginButton;
+//    @FXML
+//    private Button registerButton;
     @FXML
     private Button cancelButton;
     @FXML

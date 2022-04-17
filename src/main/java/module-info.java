@@ -8,6 +8,8 @@ module com.example.notecast {
     requires json;
     requires java.net.http;
     requires unirest.java;
+    requires jdk.xml.dom;
+    requires java.desktop;
 
     opens com.example.notecast to javafx.fxml;
     exports com.example.notecast;

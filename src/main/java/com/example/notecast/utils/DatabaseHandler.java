@@ -6,6 +6,10 @@ public class DatabaseHandler {
     {
         try {
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/notecastdbbeta", "root", "8664");
+//            Connection connection = DriverManager.getConnection("jdbc:neo4j+s://a1264504.databases.neo4j.io:7687/notecastdbbeta",
+//                    "neo4j", "9l54kNHf5dMxrTgswgUt3guVSJ_Mm3z9ad3tYEn4dw4");
+
+            //TODO: change to PreparedStatement
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("select * from userinfo");
             while(resultSet.next())
@@ -32,7 +36,10 @@ public class DatabaseHandler {
     public static boolean signup(String user_email, String user_password)
     {
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/notecastdbbeta", "root", "8664");
+//            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/notecastdbbeta", "root", "8664");
+            Connection connection = DriverManager.getConnection("jdbc:neo4j+s://a1264504.databases.neo4j.io:7687/notecastdbbeta",
+                    "neo4j", "9l54kNHf5dMxrTgswgUt3guVSJ_Mm3z9ad3tYEn4dw4");
+
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("select * from userinfo");
             while(resultSet.next())

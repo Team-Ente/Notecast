@@ -4,15 +4,29 @@ import com.example.notecast.models.dictionary.Meaning;
 import com.example.notecast.models.dictionary.MeaningCellFactory;
 import com.example.notecast.models.dictionary.SearchResult;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.HTMLEditor;
+import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import javafx.stage.FileChooser;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.events.EventTarget;
+import org.w3c.dom.html.HTMLAnchorElement;
 
 import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
+import java.awt.Desktop;
 
 public class EditorController {
     @FXML
@@ -90,7 +104,8 @@ public class EditorController {
         dictionaryButton.setVisible(true);
         hideButton.setVisible(true);
 
-        searchView.getEngine().load("https://google.com");
+//        if(searchView.getEngine().getLocation() == null)
+            searchView.getEngine().load("https://google.com");
     }
 
 
@@ -120,10 +135,91 @@ public class EditorController {
 
     @FXML
     private void initialize() {
+        FileChooser fileChooser = new FileChooser();
+        Node toolBarNode = htmlEditor.lookup(".top-toolbar");
+
+        if (toolBarNode instanceof ToolBar) {
+            ToolBar bar = (ToolBar) toolBarNode;
+            Button btn = new Button("Hyperlink");
+            ImageView iv = new ImageView(new Image(getClass().getResourceAsStream("/image/hyperlink.png")));
+            btn.setMinSize(26.0, 22.0);
+            btn.setMaxSize(26.0, 22.0);
+            iv.setFitHeight(16);
+            iv.setFitWidth(16);
+            btn.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+            btn.setGraphic(iv);
+            btn.setTooltip(new javafx.scene.control.Tooltip("Hyperlink"));
+            btn.setOnAction(e -> {
+                File selectedFile = fileChooser.showOpenDialog(((Node) e.getSource()).getScene().getWindow());
+                if(selectedFile != null) {
+                    WebView webView = (WebView) htmlEditor.lookup("WebView");
+                    String selected = (String) webView.getEngine().executeScript("window.getSelection().toString();");
+                    String hyperlinkHtml = null;
+                    try {
+                        hyperlinkHtml = "<a href=\"" + selectedFile.toURI().toURL().toExternalForm() + "\" title=\"" + selected + "\" target=\"_blank\">" + selected + "</a>";
+                    } catch (MalformedURLException ex) {
+                        ex.printStackTrace();
+                    }
+                    webView.getEngine().executeScript("insertHtmlAtCursor('" + hyperlinkHtml + "');"
+                        + "function insertHtmlAtCursor(html) {\n"
+                        + " var range, node;\n"
+                        + " if (window.getSelection && window.getSelection().getRangeAt) {\n"
+                        + " window.getSelection().deleteFromDocument();\n"
+                        + " range = window.getSelection().getRangeAt(0);\n"
+                        + " node = range.createContextualFragment(html);\n"
+                        + " range.insertNode(node);\n"
+                        + " } else if (document.selection && document.selection.createRange) {\n"
+                        + " document.selection.createRange().pasteHTML(html);\n"
+                        + " document.selection.clear();"
+                        + " }\n"
+                        + "}"
+                    );
+                }
+            });
+            bar.getItems().add(btn);
+        }
+        WebView webView = (WebView) htmlEditor.lookup("WebView");
+        WebEngine webEngine = webView.getEngine();
+        webEngine.getLoadWorker().stateProperty().addListener((observable, oldState, newState) -> {
+            if (newState == Worker.State.SUCCEEDED) {
+                NodeList nodeList = webView.getEngine().getDocument().getElementsByTagName("a");
+                if(nodeList != null) {
+                    for (int i = 0; i < nodeList.getLength(); i++) {
+                        org.w3c.dom.Node node = nodeList.item(i);
+                        ((EventTarget) node).
+                                addEventListener("click", evt -> {
+                            EventTarget target = evt.getCurrentTarget();
+                            HTMLAnchorElement anchorElement = (HTMLAnchorElement) target;
+                            String href = anchorElement.getHref();
+                                    File file = null;
+                                    try {
+                                        file = new File(new URI(href));
+                                    } catch (URISyntaxException e) {
+                                        e.printStackTrace();
+                                    }
+                                    //handle opening URL outside JavaFX WebView
+                            if(Desktop.isDesktopSupported() && Objects.requireNonNull(file).exists()) {
+                                try {
+                                    Desktop.getDesktop().open(file);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            } else {
+                                System.out.println("Error");
+                            }
+                            System.out.println(href);
+                            evt.preventDefault();
+                        }, false);
+                    }
+                }
+            }
+        });
+
+
         StringBuilder html = new StringBuilder();
         FileReader fileReader = null;
         try {
-            fileReader = new FileReader("/home/sami/Documents/html.html");
+            fileReader = new FileReader("text.html");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -140,10 +236,11 @@ public class EditorController {
         htmlEditor.setHtmlText(html.toString());
 
         listView.setCellFactory(new MeaningCellFactory());
+
     }
 
     public void exit() throws IOException {
-        PrintWriter writer = new PrintWriter("/home/sami/Documents/html.html", StandardCharsets.UTF_8);
+        PrintWriter writer = new PrintWriter("text.html", StandardCharsets.UTF_8);
         writer.println(htmlEditor.getHtmlText());
         writer.close();
     }
