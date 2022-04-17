@@ -40,35 +40,42 @@ public class LoginController {
     }
     public void loginButtonAction(ActionEvent e) throws IOException
     {
-        if(usernameTextField.getText().isBlank() || userpasswordField.getText().isBlank()) System.out.println("Genjam");
+        if(usernameTextField.getText().isBlank() || userpasswordField.getText().isBlank()) System.out.println("No userbane or password given");
         else {
-            var login = DatabaseHandler.login(usernameTextField.getText(), userpasswordField.getText());
-            //var login = true;
+            //var login = DatabaseHandler.login(usernameTextField.getText(), userpasswordField.getText());
+            var login = true;
 
             System.out.println(login);
 
-            if(login != null) {
-                FXMLLoader loader = new FXMLLoader(App.class.getResource("editor.fxml"));
+            if(login) {
+                FXMLLoader loader = new FXMLLoader(App.class.getResource("browser.fxml"));
                 Parent root = loader.load();
-                EditorController controller = loader.getController();
+                browserController controller = loader.getController();
                 stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
                 scene = new Scene(root);
                 stage.setScene(scene);
                 stage.show();
-                stage.setOnCloseRequest(windowEvent -> {
-                    windowEvent.consume();
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                    alert.setTitle("Exit");
-                    alert.setHeaderText("Save and Exit?");
-                    if(alert.showAndWait().get() == ButtonType.OK) {
-                        try {
-                            controller.exit();
-                        } catch (IOException ex) {
-                            ex.printStackTrace();
-                        }
-                        stage.close();
-                    }
-                });
+//                FXMLLoader loader = new FXMLLoader(App.class.getResource("editor.fxml"));
+//                Parent root = loader.load();
+//                EditorController controller = loader.getController();
+//                stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+//                scene = new Scene(root);
+//                stage.setScene(scene);
+//                stage.show();
+//                stage.setOnCloseRequest(windowEvent -> {
+//                    windowEvent.consume();
+//                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//                    alert.setTitle("Exit");
+//                    alert.setHeaderText("Save and Exit?");
+//                    if(alert.showAndWait().get() == ButtonType.OK) {
+//                        try {
+//                            controller.exit();
+//                        } catch (IOException ex) {
+//                            ex.printStackTrace();
+//                        }
+//                        stage.close();
+//                    }
+//                });
             }
         }
     }
