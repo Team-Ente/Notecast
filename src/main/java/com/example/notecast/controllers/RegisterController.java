@@ -1,5 +1,6 @@
 package com.example.notecast.controllers;
 
+import com.example.notecast.utils.DatabaseHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -8,6 +9,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+
+import static com.example.notecast.utils.DatabaseHandler.signup;
 
 public class RegisterController {
     @FXML
@@ -30,6 +33,8 @@ public class RegisterController {
         System.out.println(professionTextField.getText());
         System.out.println(passwordField.getText());
         System.out.println(confirmpasswordField.getText());
+        var user = signup(usernameTextField.getText(),emailTextField.getText(), professionTextField.getText(),  passwordField.getText());
+        System.out.println(user);
     }
     public void cancelbuttonAction(ActionEvent e)
     {

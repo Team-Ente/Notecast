@@ -3,6 +3,7 @@ import com.example.notecast.models.database.*;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class DatabaseHandler {
     public static User login(String user_email, String user_password)
@@ -54,6 +55,8 @@ public class DatabaseHandler {
             {
                 // add notebooks
                 ArrayList<Notebook> notebooks = new ArrayList<>();
+                notebooks = null;
+
 
                 query = "select * from notebookinfo where user_email = ?";
                 statement1 = connection.prepareStatement(query);
@@ -64,7 +67,8 @@ public class DatabaseHandler {
                 while(resultSetNotebook.next())
                 {
                     ArrayList<Topic> topics = new ArrayList<>();
-                    String notebookid = resultSetNotebook.getString("notebook_id");
+                    topics = null;
+                    int notebookid = resultSetNotebook.getInt("notebook_id");
                     String notebooktitle = resultSetNotebook.getString("notebook_title");
                     int notebookpriority = resultSetNotebook.getInt("notebook_priority");
                     Timestamp notebooktimeCreated = resultSetNotebook.getTimestamp("notebook_date_created");
@@ -74,22 +78,22 @@ public class DatabaseHandler {
 
                     query = "select * from topicinfo where notebook_id = ?";
                     statement1 = connection.prepareStatement(query);
-                    statement1.setString(1, notebookid);
+                    statement1.setInt(1, notebookid);
                     ResultSet resultSetTopic = statement1.executeQuery();
 
 
 
                     while(resultSetTopic.next())
                     {
-                        String topicid = resultSetTopic.getString("topic_id");
+                        int topicid = resultSetTopic.getInt("topic_id");
                         String topic_title = resultSetTopic.getString("topic_title");
                         Timestamp topic_date_created = resultSetTopic.getTimestamp("topic_date_created");
                         Timestamp topic_last_edit = resultSetTopic.getTimestamp("topic_last_edit");
-                        String content_id = resultSetTopic.getString("contents_id");
+                        int content_id = resultSetTopic.getInt("contents_id");
 
                         query = "select * from contentsinfo where contents_id = ?";
                         statement1 = connection.prepareStatement(query);
-                        statement1.setString(1, content_id);
+                        statement1.setInt(1, content_id);
                         ResultSet resultSetContent = statement1.executeQuery();
 
                         Content content = null;
@@ -98,7 +102,7 @@ public class DatabaseHandler {
 
                         while(resultSetContent.next())
                         {
-                            String contentid = resultSetContent.getString("contents_id");
+                            int contentid = resultSetContent.getInt("contents_id");
                             String baseStyles = resultSetContent.getString("contents_base_styles");
                             String basehtml = resultSetContent.getString("contents_base_html");
                             String basejs = resultSetContent.getString("contents_base_js");
@@ -125,7 +129,7 @@ public class DatabaseHandler {
                 {
                     String qos_id = resultSetQos.getString("qos_id");
                     String qos_service_type = resultSetQos.getString("qos_service_type");
-                    qos = new QualityOfService(qos_id, qos_service_type);
+                    qos = new QualityOfService(1, qos_service_type);
                 }
 
                 user = new User(username , useremail, user_password, userprofession , qos, notebooks);
@@ -143,9 +147,9 @@ public class DatabaseHandler {
     public static User signup(String user_name, String user_email, String user_password , String user_profession)
     {
         try {
-//            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/notecastdbbeta", "root", "8664");
-            Connection connection = DriverManager.getConnection("jdbc:neo4j+s://a1264504.databases.neo4j.io:7687/notecastdbbeta",
-                    "neo4j", "9l54kNHf5dMxrTgswgUt3guVSJ_Mm3z9ad3tYEn4dw4");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/notecastdbbeta", "root", "8664");
+           // Connection connection = DriverManager.getConnection("jdbc:neo4j+s://a1264504.databases.neo4j.io:7687/notecastdbbeta",
+                  //  "neo4j", "9l54kNHf5dMxrTgswgUt3guVSJ_Mm3z9ad3tYEn4dw4");
 
             Statement statement = connection.createStatement();
 
@@ -164,71 +168,21 @@ public class DatabaseHandler {
                 return null;
             }
 
-            // creating content
-            Content content;
-            content = new Content(null, null, null, null, null);
-            // saving into db
-
-            query = "insert into contentsinfo (contents_id,contents_base_html,contents_base_styles,contents_base_js,contents_root_folder_location) values (?, ?, ?, ?, ?)";
-            statement1 = connection.prepareStatement(query);
-            statement1.setString(1, content.getId());
-            statement1.setString(2, content.getBaseHTML());
-            statement1.setString(3, content.getBaseStyles());
-            statement1.setString(4, content.getBaseJS());
-            statement1.setString(5, content.getRootLocation());
-            statement1.executeUpdate();
-
-            // creating notebooks
-            Notebook notebook;
-            ArrayList<Topic> topics = new ArrayList<>();
-
-            notebook = new Notebook(null,  null,  -1, null, null, user_email, topics);
-
-            query = "insert into notebookinfo (notebook_id , notebook_title, notebook_priority, notebook_date_created, notebook_last_edit, user_email) values(? ,? ,? ,? ,? ,?)";
-            statement1 = connection.prepareStatement(query);
-            statement1.setString(1, notebook.getId());
-            statement1.setString(2, notebook.getTitle());
-            statement1.setInt(3, notebook.getPriority());
-            statement1.setTimestamp(4, notebook.getTimeCreated());
-            statement1.setTimestamp(6, notebook.getLastEdited());
-            statement1.setString(3, user_email);
-            statement1.executeUpdate();
-
-
-            // creating topic
-            Topic topic;
-            topic = new Topic(null, null, null, null , null, content);
-
-            //saving into db
-
-            query = "insert into topicinfo (topic_id, topic_title, topic_date_created, topic_last_edit, notebook_id, contents_id) values(?, ? ,? , ? , ? ,?)";
-            statement1 = connection.prepareStatement(query);
-            statement1.setString(1, topic.getId());
-            statement1.setString(2, topic.getTitle());
-            statement1.setTimestamp(3, topic.getTimeCreated());
-            statement1.setTimestamp(4, topic.getLastEdited());
-            statement1.setString(5, notebook.getId());
-            statement1.setString(6, content.getId());
-            statement1.executeUpdate();
-
-            notebook.addTopic(topic);
-
-            // creating qos
             QualityOfService qualityOfService;
-            qualityOfService = new QualityOfService(null, null);
-
-            query = "insert into quality_of_services (qos_id, qos_service_type) values(? , ?)";
+            if(user_profession.toLowerCase().equals("student")) {
+                qualityOfService = new QualityOfService(1, null);
+            }
+            else
+            {
+                qualityOfService = new QualityOfService(0, null);
+            }
+            query = "insert into quality_of_services (qos_id, qos_service_type) values ( ? , ?)";
             statement1 = connection.prepareStatement(query);
-            statement1.setString(1, qualityOfService.getId());
+            statement1.setInt(1, qualityOfService.getId());
             statement1.setString(2, qualityOfService.getType());
             statement1.executeUpdate();
 
-            // creating user
-            ArrayList<Notebook> notebooks = new ArrayList<>();
-            notebooks.add(notebook);
-
-            user = new User(user_name, user_email, user_password , user_profession, qualityOfService, notebooks);
-            // writing in database
+            user = new User(user_name, user_email, user_password , user_profession, qualityOfService, null);
 
             query = "insert into userinfo (user_name ,user_email, user_password, user_profession, qos_id) values (? , ? , ? , ? , ?)";
             statement1 = connection.prepareStatement(query);
@@ -236,7 +190,7 @@ public class DatabaseHandler {
             statement1.setString(2, user.getEmail());
             statement1.setString(3, user.getPassword());
             statement1.setString(4, user.getProfession());
-            statement1.setString(5, qualityOfService.getId());
+            statement1.setInt(5, qualityOfService.getId());
             statement1.executeUpdate();
 
             return user;
@@ -307,48 +261,49 @@ public class DatabaseHandler {
             query = "update quality_of_services set qos_service_type = ? where qos_id = ?";
             statement1 = connection.prepareStatement(query);
             statement1.setString(1, user.getQos().getType());
-            statement1.setString(2, user.getQos().getId());
+            statement1.setInt(2, user.getQos().getId());
             statement1.executeUpdate();
 
             // updating notebooks
             // using loops to iterate notebooks one by one
-
-            for(var notebook :user.getNotebooks())
-            {
-                // updating topic
-                for(var topic : notebook.getTopics())
-                {
-                    // updating content
-                    var content = topic.getContent();
-                    query = "update contentsinfo set contents_base_html = ? , contents_base_styles = ?  ,contents_base_js = ?,contents_root_folder_location = ?   where contents_id = ?";
-                    statement1 = connection.prepareStatement(query);
-                    statement1.setString(1, content.getBaseHTML());
-                    statement1.setString(2, content.getBaseStyles());
-                    statement1.setString(3, content.getBaseJS());
-                    statement1.setString(4, content.getRootLocation());
-                    statement1.setString(5, content.getId());
-                    statement1.executeUpdate();
-
+            if(user.getNotebooks() != null) {
+                for (var notebook : user.getNotebooks()) {
                     // updating topic
+                    if(notebook.getTopics()!= null) {
+                        for (var topic : notebook.getTopics()) {
+                            // updating content
+                            var content = topic.getContent();
+                            query = "update contentsinfo set contents_base_html = ? , contents_base_styles = ?  ,contents_base_js = ?,contents_root_folder_location = ?   where contents_id = ?";
+                            statement1 = connection.prepareStatement(query);
+                            statement1.setString(1, content.getBaseHTML());
+                            statement1.setString(2, content.getBaseStyles());
+                            statement1.setString(3, content.getBaseJS());
+                            statement1.setString(4, content.getRootLocation());
+                            statement1.setInt(5, content.getId());
+                            statement1.executeUpdate();
 
-                    query = "update topicinfo set topic_title = ? , topic_last_edit = ?  where topic_id = ?";
+                            // updating topic
+
+                            query = "update topicinfo set topic_title = ? , topic_last_edit = ?  where topic_id = ?";
+                            statement1 = connection.prepareStatement(query);
+                            statement1.setString(1, topic.getTitle());
+                            statement1.setTimestamp(2, topic.getLastEdited());
+                            statement1.setInt(3, topic.getId());
+                            statement1.executeUpdate();
+                        }
+                    }
+
+                    // updating notebook
+
+                    query = "update notebookinfo set notebook_title = ? , notebook_priority = ?, notebook_last_edit = ?   where notebook_id = ?";
                     statement1 = connection.prepareStatement(query);
-                    statement1.setString(1, topic.getTitle());
-                    statement1.setTimestamp(2, topic.getLastEdited());
-                    statement1.setString(3, topic.getId());
+                    statement1.setString(1, notebook.getTitle());
+                    statement1.setInt(2, notebook.getPriority());
+                    statement1.setTimestamp(3, notebook.getLastEdited());
+                    statement1.setInt(4, notebook.getId());
                     statement1.executeUpdate();
+
                 }
-
-                // updating notebook
-
-                query = "update notebookinfo set notebook_title = ? , notebook_priority = ?, notebook_last_edit = ?   where notebook_id = ?";
-                statement1 = connection.prepareStatement(query);
-                statement1.setString(1, notebook.getTitle());
-                statement1.setInt(2, notebook.getPriority());
-                statement1.setTimestamp(3, notebook.getLastEdited());
-                statement1.setString(4, notebook.getId());
-                statement1.executeUpdate();
-
             }
 
             return true;
@@ -359,4 +314,142 @@ public class DatabaseHandler {
 
         return true;
     }
+
+    public static Content createContent(String baseHtml, String baseStyle, String baseJs, String rootFolderLocation, int topicID)
+    {
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/notecastdbbeta", "root", "8664");
+            Statement statement = connection.createStatement();
+
+            String query;
+            PreparedStatement statement1;
+            ResultSet resultSet;
+
+            query = "insert into contentinfo (contents_base_html,contents_base_styles,contents_base_js,contents_root_folder_lcoation, topic_id) values (? , ? , ? , ?, ?)";
+            statement1 = connection.prepareStatement(query);
+            statement1.setString(1, baseHtml);
+            statement1.setString(2, baseStyle);
+            statement1.setString(3, baseJs);
+            statement1.setString(4, rootFolderLocation);
+            statement1.setInt(5, topicID);
+            statement1.executeUpdate();
+
+            query = "select * from content_info where topic_id = ?";
+            statement1 = connection.prepareStatement(query);
+            statement1.setInt(1, topicID);
+            resultSet = statement1.executeQuery();
+
+            int contentId;
+
+            contentId = resultSet.getInt("content_id");
+
+            return new Content(contentId , baseHtml , baseJs, baseStyle , rootFolderLocation);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static Topic createTopic(String title, Timestamp dateCreated, Timestamp lastEdit , int notebookid, Content content)
+    {
+
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/notecastdbbeta", "root", "8664");
+            Statement statement = connection.createStatement();
+
+            String query;
+            PreparedStatement statement1;
+            ResultSet resultSet;
+
+            query = "insert into topictinfo (topic_title ,topic_date_created,topic_last_edit,notebook_id) values ( ? , ? , ? , ?)";
+            statement1 = connection.prepareStatement(query);
+            statement1.setString(1, title);
+            statement1.setTimestamp(2, dateCreated);
+            statement1.setTimestamp(3, lastEdit);
+            statement1.setInt(4, notebookid);
+            statement1.executeUpdate();
+
+            query = "select * from content_info where notebook_id = ?";
+            statement1 = connection.prepareStatement(query);
+            statement1.setInt(1, notebookid);
+            resultSet = statement1.executeQuery();
+
+            int topicid = resultSet.getInt("topic_id");
+
+            return new Topic(topicid, title, dateCreated, lastEdit, notebookid, content);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static Topic createNotebook(String title,int priority, Timestamp dateCreated, Timestamp lastEdit , String usermail, Topic topic)
+    {
+
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/notecastdbbeta", "root", "8664");
+            Statement statement = connection.createStatement();
+
+            String query;
+            PreparedStatement statement1;
+            ResultSet resultSet;
+
+            query = "insert into notebookinfo (notebook_titile ,notebook_priority,notebook_date_created,notebook_last_edit,user_email) values ( ? , ? , ? , ?, ?)";
+            statement1 = connection.prepareStatement(query);
+            statement1.setString(1, title);
+            statement1.setInt(2, priority);
+            statement1.setTimestamp(3, dateCreated);
+            statement1.setTimestamp(4, lastEdit);
+            statement1.setString(5,usermail);
+            statement1.executeUpdate();
+
+            query = "select * from notebook_info where user_email = ?";
+            statement1 = connection.prepareStatement(query);
+            resultSet = statement1.executeQuery();
+
+            int topicid = resultSet.getInt("topic_id");
+
+            //return new Topic(topicid, title, dateCreated, lastEdit, notebookid, content);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static boolean writeContent(Content content)
+    {
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/notecastdbbeta", "root", "8664");
+            Statement statement = connection.createStatement();
+
+            String query;
+            PreparedStatement statement1;
+            ResultSet resultSet;
+
+            query = "select * from contentinfo where content_id = ?";
+            statement1 = connection.prepareStatement(query);
+            statement1.setInt(1, content.getId());
+            resultSet = statement1.executeQuery();
+
+            while(resultSet.next())
+            {
+                query = "update contentsinfo set contents_base_html = ? , contents_base_styles = ?  ,contents_base_js = ?,contents_root_folder_location = ?   where contents_id = ?";
+                statement1 = connection.prepareStatement(query);
+                statement1.setString(1, content.getBaseHTML());
+                statement1.setString(2, content.getBaseStyles());
+                statement1.setString(3, content.getBaseJS());
+                statement1.setString(4, content.getRootLocation());
+                statement1.setInt(5, content.getId());
+                statement1.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
 }

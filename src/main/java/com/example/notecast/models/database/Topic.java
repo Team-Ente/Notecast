@@ -3,14 +3,14 @@ package com.example.notecast.models.database;
 import java.sql.Timestamp;
 
 public class Topic {
-    final String id;
+    final int id;
     final String title;
     final Timestamp timeCreated;
     final Timestamp lastEdited;
-    final String notebookId;
+    final int notebookId;
     final Content content;
 
-    public Topic(String id, String title, Timestamp timeCreated, Timestamp lastEdited, String notebookId, Content content) {
+    public Topic(int id, String title, Timestamp timeCreated, Timestamp lastEdited, int notebookId, Content content) {
         this.id = id;
         this.title = title;
         this.timeCreated = timeCreated;
@@ -19,7 +19,7 @@ public class Topic {
         this.content = content;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
@@ -35,7 +35,7 @@ public class Topic {
         return lastEdited;
     }
 
-    public String getNotebookId() {
+    public int getNotebookId() {
         return notebookId;
     }
 
