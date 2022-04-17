@@ -33,8 +33,8 @@ public class browserController {
                 FXMLLoader loader = new FXMLLoader(App.class.getResource("editor.fxml"));
                 Parent root = loader.load();
                 EditorController controller = loader.getController();
-        Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
+                Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                Scene scene = new Scene(root);
                 stage.setScene(scene);
                 stage.show();
                 stage.setOnCloseRequest(windowEvent -> {
@@ -54,12 +54,15 @@ public class browserController {
     }
     public void browseNoteAction(ActionEvent e) throws IOException {
         System.out.println("Browsing Notebooks");
+        //Sami do your magic
     }
     public void settingsAction(ActionEvent e) throws IOException {
         System.out.println("Settings opened");
+        //heheheeee
     }
     public void instructionsAction(ActionEvent e) throws IOException {
         System.out.println("Instructions Showed");
+        //who
     }
     public void exitAction(ActionEvent e)
     {
