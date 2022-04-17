@@ -42,12 +42,15 @@ public class LoginController {
     {
         if(usernameTextField.getText().isBlank() || userpasswordField.getText().isBlank()) System.out.println("No userbane or password given");
         else {
-            //var login = DatabaseHandler.login(usernameTextField.getText(), userpasswordField.getText());
-            var login = true;
+            var login = DatabaseHandler.login(usernameTextField.getText(), userpasswordField.getText());
+            //var login = true;
 
             System.out.println(login);
 
-            if(login) {
+            if(login != null) {
+
+                String username = login.getName();
+                System.out.println(username);
                 FXMLLoader loader = new FXMLLoader(App.class.getResource("browser.fxml"));
                 Parent root = loader.load();
                 browserController controller = loader.getController();
@@ -55,6 +58,7 @@ public class LoginController {
                 scene = new Scene(root);
                 stage.setScene(scene);
                 stage.show();
+
 //                FXMLLoader loader = new FXMLLoader(App.class.getResource("editor.fxml"));
 //                Parent root = loader.load();
 //                EditorController controller = loader.getController();
