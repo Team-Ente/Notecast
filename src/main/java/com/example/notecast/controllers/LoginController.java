@@ -1,6 +1,7 @@
 package com.example.notecast.controllers;
 
 import com.example.notecast.App;
+import com.example.notecast.models.database.User;
 import com.example.notecast.utils.DatabaseHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -41,10 +42,12 @@ public class LoginController {
     {
         if(usernameTextField.getText().isBlank() || userpasswordField.getText().isBlank()) System.out.println("Genjam");
         else {
-//            var login = DatabaseHandler.login(usernameTextField.getText(), userpasswordField.getText());
-            var login = true;
+            var login = DatabaseHandler.login(usernameTextField.getText(), userpasswordField.getText());
+            //var login = true;
 
-            if(login) {
+            System.out.println(login);
+
+            if(login != null) {
                 FXMLLoader loader = new FXMLLoader(App.class.getResource("editor.fxml"));
                 Parent root = loader.load();
                 EditorController controller = loader.getController();
@@ -78,8 +81,6 @@ public class LoginController {
         stage.setScene(scene);
         stage.show();
 //
-
-
 
     }
 }
