@@ -1,9 +1,9 @@
 package com.example.notecast.models.database;
 
 public class QualityOfService {
-    final String id;
+    final int id;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
@@ -14,7 +14,7 @@ public class QualityOfService {
     final String type;
     // TODO: add more attributes later
 
-    public QualityOfService(String id, String type) {
+    public QualityOfService(int id, String type) {
         this.id = id;
         this.type = type;
     }
