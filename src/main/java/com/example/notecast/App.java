@@ -24,7 +24,7 @@ public class App extends Application {
             stage.setScene(scene);
             stateStack.push(scene);
             controller.setStateStack(stateStack);
-            stage.getIcons().add(new Image("D:\\NoteCast\\src\\main\\java\\com\\example\\notecast\\icon.png"));
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/image/icon.png")));
             stage.setTitle("NoteCast");
             stage.show();
         } catch (IOException e) {
