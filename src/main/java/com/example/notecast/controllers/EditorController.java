@@ -117,6 +117,26 @@ public class EditorController {
     }
 
 
+    public void openNotes(File file) {
+        StringBuilder html = new StringBuilder();
+        FileReader fileReader = null;
+        try {
+            fileReader = new FileReader(file.getAbsolutePath());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            assert fileReader != null;
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            String line;
+            while((line=bufferedReader.readLine())!= null){
+                html.append(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        htmlEditor.setHtmlText(html.toString());
+    }
 
 //    public void handleHTMLtoText(ActionEvent event) throws IOException {
 //        textarea.setText(htmlEditor.getHtmlText());
