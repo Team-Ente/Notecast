@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -23,6 +24,7 @@ public class App extends Application {
             stage.setScene(scene);
             stateStack.push(scene);
             controller.setStateStack(stateStack);
+            stage.getIcons().add(new Image("D:\\NoteCast\\src\\main\\java\\com\\example\\notecast\\icon.png"));
             stage.setTitle("NoteCast");
             stage.show();
         } catch (IOException e) {
