@@ -175,15 +175,20 @@ public class DatabaseHandler {
             if(user_profession.toLowerCase().equals("student")) {
                 qualityOfService = new QualityOfService(1, null);
             }
-            else
+            else if(user_profession.toLowerCase().equals("businessman"))
             {
                 qualityOfService = new QualityOfService(0, null);
             }
-            query = "insert into quality_of_services (qos_id, qos_service_type) values ( ? , ?)";
-            statement1 = connection.prepareStatement(query);
-            statement1.setInt(1, qualityOfService.getId());
-            statement1.setString(2, qualityOfService.getType());
-            statement1.executeUpdate();
+            else
+            {
+                qualityOfService = new QualityOfService(2, null);
+            }
+
+            //query = "insert into quality_of_services (qos_id, qos_service_type) values ( ? , ?)";
+            //statement1 = connection.prepareStatement(query);
+            //statement1.setInt(1, qualityOfService.getId());
+            //statement1.setString(2, qualityOfService.getType());
+            //statement1.executeUpdate();
 
             user = new User(user_name, user_email, user_password , user_profession, qualityOfService, null);
 
