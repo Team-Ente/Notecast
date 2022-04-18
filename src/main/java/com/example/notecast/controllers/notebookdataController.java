@@ -18,10 +18,15 @@ import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.Deque;
+import java.util.Stack;
 
 import static com.example.notecast.utils.DatabaseHandler.createNotebook;
 
 public class notebookdataController {
+    Stack<Scene> stateStack;
+    public void setStateStack(Stack<Scene> stStack){ stateStack = stStack;}
+
+
     @FXML
     private TextField notebooktitle;
     @FXML
