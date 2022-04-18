@@ -15,6 +15,7 @@ import java.util.Stack;
 import java.util.regex.*;
 import java.util.*;
 
+import static com.example.notecast.utils.DatabaseHandler.getHash;
 import static com.example.notecast.utils.DatabaseHandler.signup;
 
 public class RegisterController {
@@ -105,7 +106,7 @@ public class RegisterController {
         System.out.println(professionTextField.getText());
         System.out.println(passwordField.getText());
         System.out.println(confirmpasswordField.getText());
-        var user = signup(usernameTextField.getText(),emailTextField.getText(), professionTextField.getText(),  passwordField.getText());
+        var user = signup(usernameTextField.getText(),emailTextField.getText(), getHash((passwordField.getText())), professionTextField.getText() );
         System.out.println(user);
         cancelbuttonAction(e);
     }

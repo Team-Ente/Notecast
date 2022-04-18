@@ -2,7 +2,7 @@ package com.example.notecast.controllers;
 
 import com.example.notecast.App;
 import com.example.notecast.models.database.Notebook;
-import com.example.notecast.utils.DatabaseHandler;
+import com.example.notecast.utils.*;
 import com.example.notecast.models.database.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,6 +19,8 @@ import org.w3c.dom.Text;
 import java.io.IOException;
 import java.util.Deque;
 
+import static com.example.notecast.utils.DatabaseHandler.createNotebook;
+
 public class notebookdataController {
     @FXML
     private TextField notebooktitle;
@@ -29,9 +31,6 @@ public class notebookdataController {
 
     public void createNotebookAction(ActionEvent e) throws IOException {
         System.out.println(notebooktitle.getText());
-
-
-
         System.out.println(topicTitle.getText());
         System.out.println(Integer.parseInt(notebookPriority.getText()));
 

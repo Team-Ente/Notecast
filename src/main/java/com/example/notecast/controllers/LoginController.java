@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Stack;
 
+import static com.example.notecast.utils.DatabaseHandler.getHash;
+
 public class LoginController {
     Stack<Scene> stateStack;
     public void setStateStack(Stack<Scene> stStack){ stateStack = stStack;}
@@ -47,7 +49,10 @@ public class LoginController {
     {
         if(usernameTextField.getText().isBlank() || userpasswordField.getText().isBlank()) System.out.println("No userbane or password given");
         else {
-            var login = DatabaseHandler.login(usernameTextField.getText(), userpasswordField.getText());
+
+            // use hash function , use email as salt value
+
+            var login = DatabaseHandler.login(usernameTextField.getText(), getHash(userpasswordField.getText()));
             //var login = true;
 
             System.out.println(login);

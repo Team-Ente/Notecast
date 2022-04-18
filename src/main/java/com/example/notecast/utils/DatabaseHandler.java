@@ -1,11 +1,36 @@
 package com.example.notecast.utils;
 import com.example.notecast.models.database.*;
 
+import java.util.*;
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Locale;
 
 public class DatabaseHandler {
+
+    public static String getHash(String password)
+    {
+        String hashValue = "";
+        byte[] pass = password.getBytes(StandardCharsets.UTF_8);
+        try
+        {
+            MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+            messageDigest.update(pass);
+            byte[] digestBytes = messageDigest.digest();
+            hashValue = new String(digestBytes, StandardCharsets.UTF_8);
+        }
+        catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        return hashValue;
+    }
+
     public static User login(String user_email, String user_password)
     {
         try {
