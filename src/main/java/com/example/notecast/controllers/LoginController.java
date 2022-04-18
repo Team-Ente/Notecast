@@ -47,23 +47,23 @@ public class LoginController {
     {
         if(usernameTextField.getText().isBlank() || userpasswordField.getText().isBlank()) System.out.println("No userbane or password given");
         else {
-            var login = DatabaseHandler.login(usernameTextField.getText(), userpasswordField.getText());
-            //var login = true;
+//            var login = DatabaseHandler.login(usernameTextField.getText(), userpasswordField.getText());
+            var login = true;
 
             System.out.println(login);
 
-            if(login != null) {
-                String temp = login.getName();
+            if(login ) {
+//                String temp = login.getName();
 
-                try {
-                    FileWriter myWriter = new FileWriter("filename.txt");
-                    myWriter.write(temp);
-                    myWriter.close();
-                    System.out.println("Successfully wrote to the file.");
-                } catch (IOException exx) {
-                    System.out.println("An error occurred.");
-                    exx.printStackTrace();
-                }
+//                try {
+//                    FileWriter myWriter = new FileWriter("filename.txt");
+//                    myWriter.write(temp);
+//                    myWriter.close();
+//                    System.out.println("Successfully wrote to the file.");
+//                } catch (IOException exx) {
+//                    System.out.println("An error occurred.");
+//                    exx.printStackTrace();
+//                }
 
                 FXMLLoader loader = new FXMLLoader(App.class.getResource("browser.fxml"));
                 Parent root = loader.load();
@@ -75,6 +75,18 @@ public class LoginController {
 //                controller.setUser(login);
                 stage.setScene(scene);
                 stage.show();
+
+                stage.setOnCloseRequest(windowEvent -> {
+                    windowEvent.consume();
+                    Alert alert = new Alert(Alert.AlertType.NONE);
+                    alert.getButtonTypes().addAll(ButtonType.YES, ButtonType.CANCEL);
+                    alert.setTitle("Logout");
+                    alert.setHeaderText("Are you sure you want to logout?");
+                    ButtonType buttonType = alert.showAndWait().get();
+                    if (ButtonType.YES.equals(buttonType)) {
+                        controller.logoutAction();
+                    }
+                });
 
 //                FXMLLoader loader = new FXMLLoader(App.class.getResource("editor.fxml"));
 //                Parent root = loader.load();

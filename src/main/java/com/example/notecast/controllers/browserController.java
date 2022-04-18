@@ -41,15 +41,17 @@ public class browserController {
     private Button instructions;
     @FXML
     private Button exit;
+
+
     public void newNoteAction(ActionEvent e) throws IOException {
         System.out.println("New Note Created");
                 FXMLLoader loader = new FXMLLoader(App.class.getResource("notebookdata.fxml"));
                 Parent root = loader.load();
                 notebookdataController controller = loader.getController();
+                controller.setStateStack(stateStack);
                 Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
                 Scene scene = new Scene(root);
                 stage.setScene(scene);
-                stateStack.push(scene);
                 stage.show();
     }
     public void browseNoteAction(ActionEvent e) throws IOException {
@@ -62,7 +64,6 @@ public class browserController {
         Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        Deque<Scene> stateStack = null;
         stateStack.push(scene);
         stage.show();
     }
@@ -74,11 +75,12 @@ public class browserController {
         System.out.println("Instructions Showed");
         //who
     }
-    public void logoutAction(ActionEvent e)
+    public void logoutAction()
     {
         Stage stage = (Stage)exit.getScene().getWindow();
         stateStack.pop();
         stage.setScene(stateStack.peek());
+        stage.setOnCloseRequest(null);
     }
 
 
