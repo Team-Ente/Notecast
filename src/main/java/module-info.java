@@ -14,5 +14,6 @@ module com.example.notecast {
     opens com.example.notecast to javafx.fxml;
     exports com.example.notecast;
     exports com.example.notecast.controllers;
+    exports com.example.notecast.models.database;
     opens com.example.notecast.controllers to javafx.fxml;
 }

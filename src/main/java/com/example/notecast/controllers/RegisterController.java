@@ -4,18 +4,23 @@ import com.example.notecast.utils.DatabaseHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Stack;
 import java.util.regex.*;
 import java.util.*;
 
 import static com.example.notecast.utils.DatabaseHandler.signup;
 
 public class RegisterController {
+    Stack<Scene> stateStack;
+    public void setStateStack(Stack<Scene> stStack){ stateStack = stStack;}
+
     @FXML
     private TextField usernameTextField;
     @FXML
@@ -94,11 +99,21 @@ public class RegisterController {
             var user = signup(usernameTextField.getText(), emailTextField.getText(), professionTextField.getText(), passwordField.getText());
         }
 
+        //TODO: implement form validation
+        System.out.println(usernameTextField.getText());
+        System.out.println(emailTextField.getText());
+        System.out.println(professionTextField.getText());
+        System.out.println(passwordField.getText());
+        System.out.println(confirmpasswordField.getText());
+        var user = signup(usernameTextField.getText(),emailTextField.getText(), professionTextField.getText(),  passwordField.getText());
+        System.out.println(user);
+        cancelbuttonAction(e);
     }
     public void cancelbuttonAction(ActionEvent e)
     {
         Stage stage = (Stage)cancelButton.getScene().getWindow();
-        stage.close();
+        stateStack.pop();
+        stage.setScene(stateStack.peek());
     }
 
 }

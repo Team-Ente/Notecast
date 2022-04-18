@@ -14,8 +14,11 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Stack;
 
 public class LoginController {
+    Stack<Scene> stateStack;
+    public void setStateStack(Stack<Scene> stStack){ stateStack = stStack;}
 //    @FXML
 //    private ImageView notecastImageview;
 //    @FXML
@@ -43,7 +46,7 @@ public class LoginController {
         if(usernameTextField.getText().isBlank() || userpasswordField.getText().isBlank()) System.out.println("No userbane or password given");
         else {
             var login = DatabaseHandler.login(usernameTextField.getText(), userpasswordField.getText());
-            //var login = true;
+//            var login = true;
 
             System.out.println(login);
 
@@ -56,6 +59,9 @@ public class LoginController {
                 browserController controller = loader.getController();
                 stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
                 scene = new Scene(root);
+                stateStack.push(scene);
+                controller.setStateStack(stateStack);
+//                controller.setUser(login);
                 stage.setScene(scene);
                 stage.show();
 
@@ -89,9 +95,9 @@ public class LoginController {
         RegisterController controller = loader.getController();
         stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         scene = new Scene(root);
+        stateStack.push(scene);
+        controller.setStateStack(stateStack);
         stage.setScene(scene);
         stage.show();
-//
-
     }
 }

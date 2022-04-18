@@ -1,6 +1,8 @@
 package com.example.notecast.controllers;
 
 import com.example.notecast.App;
+import com.example.notecast.models.database.QualityOfService;
+import com.example.notecast.models.database.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,10 +16,15 @@ import javafx.stage.Stage;
 import javafx.scene.control.Button;
 
 
-import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Stack;
 
 public class browserController {
+    Stack<Scene> stateStack;
+    public void setStateStack(Stack<Scene> stStack){ stateStack = stStack;}
+    User user;
+    public void setUser(User u){ user = u;}
     @FXML
     private Button newNote;
     @FXML
@@ -36,25 +43,42 @@ public class browserController {
                 Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
                 Scene scene = new Scene(root);
                 stage.setScene(scene);
+                stateStack.push(scene);
                 stage.show();
                 stage.setOnCloseRequest(windowEvent -> {
                     windowEvent.consume();
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    Alert alert = new Alert(Alert.AlertType.NONE);
+                    alert.getButtonTypes().addAll(ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
                     alert.setTitle("Exit");
-                    alert.setHeaderText("Save and Exit?");
-                    if(alert.showAndWait().get() == ButtonType.OK) {
+                    alert.setHeaderText("Do you want save the document?");
+                    ButtonType buttonType = alert.showAndWait().get();
+                    if (ButtonType.YES.equals(buttonType)) {
                         try {
-                            controller.exit();
+                            controller.exit(e);
                         } catch (IOException ex) {
                             ex.printStackTrace();
                         }
-                        stage.close();
+
+                        stateStack.pop();
+                        stage.setScene(stateStack.peek());
+                    } else if (ButtonType.NO.equals(buttonType)) {
+                        stateStack.pop();
+                        stage.setScene(stateStack.peek());
                     }
+                    stage.setOnCloseRequest(null);
                 });
     }
     public void browseNoteAction(ActionEvent e) throws IOException {
         System.out.println("Browsing Notebooks");
-        //Sami do your magic
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("notebook_list.fxml"));
+        Parent root = loader.load();
+        NotebookListController controller = loader.getController();
+        controller.setUser(user);
+        Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stateStack.push(scene);
+        stage.show();
     }
     public void settingsAction(ActionEvent e) throws IOException {
         System.out.println("Settings opened");
@@ -64,10 +88,11 @@ public class browserController {
         System.out.println("Instructions Showed");
         //who
     }
-    public void exitAction(ActionEvent e)
+    public void logoutAction(ActionEvent e)
     {
         Stage stage = (Stage)exit.getScene().getWindow();
-        stage.close();
+        stateStack.pop();
+        stage.setScene(stateStack.peek());
     }
 
 

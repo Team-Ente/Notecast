@@ -5,9 +5,13 @@ import com.example.notecast.models.dictionary.MeaningCellFactory;
 import com.example.notecast.models.dictionary.SearchResult;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import javafx.concurrent.Worker;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -19,16 +23,20 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.events.EventTarget;
 import org.w3c.dom.html.HTMLAnchorElement;
 
+import java.awt.*;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
+import java.util.Stack;
 import java.util.concurrent.ExecutionException;
-import java.awt.Desktop;
 
 public class EditorController {
+    Stack<Scene> stateStack;
+    public void setStateStack(Stack<Scene> stStack){ stateStack = stStack;}
+
     @FXML
     private HTMLEditor htmlEditor;
 
@@ -112,14 +120,14 @@ public class EditorController {
 
 //    public void handleHTMLtoText(ActionEvent event) throws IOException {
 //        textarea.setText(htmlEditor.getHtmlText());
-//        PrintWriter writer = new PrintWriter("text.html", StandardCharsets.UTF_8);
+//        PrintWriter writer = new PrintWriter("temp.html", StandardCharsets.UTF_8);
 //        writer.println(htmlEditor.getHtmlText());
 //        writer.close();
 //    }
 //    public void handleHTMLtoWeb(ActionEvent event) throws FileNotFoundException {
 //        WebEngine webengine = webview.getEngine();
 //        StringBuilder html = new StringBuilder();
-//        FileReader fileReader = new FileReader("text.html");
+//        FileReader fileReader = new FileReader("temp.html");
 ////        String result;
 //        try {
 //            BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -219,7 +227,7 @@ public class EditorController {
         StringBuilder html = new StringBuilder();
         FileReader fileReader = null;
         try {
-            fileReader = new FileReader("text.html");
+            fileReader = new FileReader("temp.html");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -239,9 +247,16 @@ public class EditorController {
 
     }
 
-    public void exit() throws IOException {
-        PrintWriter writer = new PrintWriter("text.html", StandardCharsets.UTF_8);
-        writer.println(htmlEditor.getHtmlText());
-        writer.close();
+    public void exit(ActionEvent e) throws IOException {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save File As");
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text Files", "*.html"));
+        File selectedFile = fileChooser.showSaveDialog(((Node) e.getSource()).getScene().getWindow());
+        if (selectedFile != null) {
+            PrintWriter writer = new PrintWriter(selectedFile.getAbsolutePath(), StandardCharsets.UTF_8);
+            writer.println(htmlEditor.getHtmlText());
+            writer.close();
+        }
+
     }
 }
