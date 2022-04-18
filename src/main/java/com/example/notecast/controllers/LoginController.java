@@ -47,12 +47,12 @@ public class LoginController {
     {
         if(usernameTextField.getText().isBlank() || userpasswordField.getText().isBlank()) System.out.println("No userbane or password given");
         else {
-//            var login = DatabaseHandler.login(usernameTextField.getText(), userpasswordField.getText());
-            var login = true;
+            var login = DatabaseHandler.login(usernameTextField.getText(), userpasswordField.getText());
+//            var login = true;
 
             System.out.println(login);
 
-            if(login ) {
+            if(login != null) {
 //                String temp = login.getName();
 
 //                try {
@@ -72,7 +72,7 @@ public class LoginController {
                 scene = new Scene(root);
                 stateStack.push(scene);
                 controller.setStateStack(stateStack);
-//                controller.setUser(login);
+                controller.setUser(login);
                 stage.setScene(scene);
                 stage.show();
 
