@@ -14,14 +14,14 @@
             <Image url="@../../../Image/2.png" />
          </image>
       </ImageView>
-      <Button fx:id="newNote" layoutX="347.0" layoutY="94.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#newNoteAction" prefHeight="25.0" prefWidth="177.0" styleClass="btn" text="New Note" />
-      <Button fx:id="browseNotes" layoutX="347.0" layoutY="146.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#browseNoteAction" prefHeight="25.0" prefWidth="177.0" styleClass="btn" text="Browse Notes" />
-      <Button fx:id="settings" layoutX="347.0" layoutY="194.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#settingsAction" prefHeight="25.0" prefWidth="177.0" styleClass="btn" text="Settings" />
-      <Button fx:id="instructions" layoutX="347.0" layoutY="245.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#instructionsAction" prefHeight="25.0" prefWidth="177.0" styleClass="btn" text="Instructions" />
-      <Button fx:id="exit" layoutX="347.0" layoutY="294.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#logoutAction" prefHeight="25.0" prefWidth="177.0" styleClass="btn" text="Logout" />
-      <Label layoutX="72.0" layoutY="91.0" text="Hello, $User$">
+      <Button fx:id="newNote" layoutX="347.0" layoutY="92.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#newNoteAction" prefHeight="32.0" prefWidth="177.0" styleClass="btn" text="New Note" />
+      <Button fx:id="browseNotes" layoutX="347.0" layoutY="146.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#browseNoteAction" prefHeight="32.0" prefWidth="177.0" styleClass="btn" text="Browse Notes" />
+      <Button fx:id="settings" layoutX="347.0" layoutY="194.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#settingsAction" prefHeight="32.0" prefWidth="177.0" styleClass="btn" text="Settings" />
+      <Button fx:id="instructions" layoutX="347.0" layoutY="245.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#instructionsAction" prefHeight="32.0" prefWidth="177.0" styleClass="btn" text="Instructions" />
+      <Button fx:id="exit" layoutX="347.0" layoutY="294.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#logoutAction" prefHeight="32.0" prefWidth="177.0" styleClass="btn" text="Logout" />
+      <Label layoutX="70.0" layoutY="92.0" text="NoteCast">
          <font>
-            <Font name="Segoe UI" size="26.0" />
+            <Font size="38.0" />
          </font>
       </Label>
    </children>

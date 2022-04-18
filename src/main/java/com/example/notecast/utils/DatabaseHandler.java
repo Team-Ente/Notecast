@@ -9,7 +9,7 @@ public class DatabaseHandler {
     public static User login(String user_email, String user_password)
     {
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/notecastdbbeta", "root", "8664");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/notecastdbbeta", "root", "yokipasa");
 //            Connection connection = DriverManager.getConnection("jdbc:neo4j+s://a1264504.databases.neo4j.io:7687/notecastdbbeta",
 //                    "neo4j", "9l54kNHf5dMxrTgswgUt3guVSJ_Mm3z9ad3tYEn4dw4");
 
@@ -32,9 +32,6 @@ public class DatabaseHandler {
             {
                 useremail = resultSet.getString("user_email");
                 password = resultSet.getString("user_password");
-
-                System.out.println(useremail);
-                System.out.println(password);
 
                 if(useremail.equals(user_email)) {
                     if (password.equals(user_password)) {
@@ -66,7 +63,6 @@ public class DatabaseHandler {
                 statement1.setString(1, user_email);
                 ResultSet resultSetNotebook = statement1.executeQuery();
 
-                System.out.println(resultSetNotebook.next());
 
                 while(resultSetNotebook.next())
                 {
@@ -93,10 +89,11 @@ public class DatabaseHandler {
                         String topic_title = resultSetTopic.getString("topic_title");
                         Timestamp topic_date_created = resultSetTopic.getTimestamp("topic_date_created");
                         Timestamp topic_last_edit = resultSetTopic.getTimestamp("topic_last_edit");
+                        int content_id = resultSetTopic.getInt("contents_id");
 
-                        query = "select * from contentsinfo where topic_id = ?";
+                        query = "select * from contentsinfo where contents_id = ?";
                         statement1 = connection.prepareStatement(query);
-                        statement1.setInt(1, topicid);
+                        statement1.setInt(1, content_id);
                         ResultSet resultSetContent = statement1.executeQuery();
 
                         Content content = null;
@@ -130,9 +127,9 @@ public class DatabaseHandler {
 
                 while(resultSetQos.next())
                 {
-                    int qos_id = resultSetQos.getInt("qos_id");
+                    String qos_id = resultSetQos.getString("qos_id");
                     String qos_service_type = resultSetQos.getString("qos_service_type");
-                    qos = new QualityOfService(qos_id, qos_service_type);
+                    qos = new QualityOfService(1, qos_service_type);
                 }
 
                 user = new User(username , useremail, user_password, userprofession , qos, notebooks);
@@ -150,7 +147,7 @@ public class DatabaseHandler {
     public static User signup(String user_name, String user_email, String user_password , String user_profession)
     {
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/notecastdbbeta", "root", "8664");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/notecastdbbeta", "root", "yokipasa");
            // Connection connection = DriverManager.getConnection("jdbc:neo4j+s://a1264504.databases.neo4j.io:7687/notecastdbbeta",
                   //  "neo4j", "9l54kNHf5dMxrTgswgUt3guVSJ_Mm3z9ad3tYEn4dw4");
 
@@ -214,7 +211,7 @@ public class DatabaseHandler {
     {
         // return user object
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/notecastdbbeta", "root", "8664");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/notecastdbbeta", "root", "yokipasa");
             Statement statement = connection.createStatement();
 
             String query;
@@ -247,7 +244,7 @@ public class DatabaseHandler {
     {
         // write from user object to database
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/notecastdbbeta", "root", "8664");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/notecastdbbeta", "root", "yokipasa");
             Statement statement = connection.createStatement();
 
             String query;
@@ -326,7 +323,7 @@ public class DatabaseHandler {
     public static Content createContent(String baseHtml, String baseStyle, String baseJs, String rootFolderLocation, int topicID)
     {
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/notecastdbbeta", "root", "8664");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/notecastdbbeta", "root", "yokipasa");
             Statement statement = connection.createStatement();
 
             String query;
@@ -359,11 +356,11 @@ public class DatabaseHandler {
         return null;
     }
 
-    public static Topic createTopic(String title, Timestamp dateCreated, Timestamp lastEdit , int notebookid)
+    public static Topic createTopic(String title, Timestamp dateCreated, Timestamp lastEdit , int notebookid, Content content)
     {
 
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/notecastdbbeta", "root", "8664");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/notecastdbbeta", "root", "yokipasa");
             Statement statement = connection.createStatement();
 
             String query;
@@ -385,7 +382,7 @@ public class DatabaseHandler {
 
             int topicid = resultSet.getInt("topic_id");
 
-            return new Topic(topicid, title, dateCreated, lastEdit, notebookid, null);
+            return new Topic(topicid, title, dateCreated, lastEdit, notebookid, content);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -393,11 +390,11 @@ public class DatabaseHandler {
         return null;
     }
 
-    public static Notebook createNotebook(String title,int priority, Timestamp dateCreated, Timestamp lastEdit , String usermail)
+    public static Topic createNotebook(String title,int priority, Timestamp dateCreated, Timestamp lastEdit , String usermail, Topic topic)
     {
 
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/notecastdbbeta", "root", "8664");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/notecastdbbeta", "root", "yokipasa");
             Statement statement = connection.createStatement();
 
             String query;
@@ -417,13 +414,47 @@ public class DatabaseHandler {
             statement1 = connection.prepareStatement(query);
             resultSet = statement1.executeQuery();
 
-            int notebookid = resultSet.getInt("notebook_id");
+            int topicid = resultSet.getInt("topic_id");
 
-            return new Notebook(notebookid, title,priority, dateCreated, lastEdit,usermail,null);
+            //return new Topic(topicid, title, dateCreated, lastEdit, notebookid, content);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return null;
+    }
+
+    public static boolean writeContent(Content content)
+    {
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/notecastdbbeta", "root", "yokipasa");
+            Statement statement = connection.createStatement();
+
+            String query;
+            PreparedStatement statement1;
+            ResultSet resultSet;
+
+            query = "select * from contentinfo where content_id = ?";
+            statement1 = connection.prepareStatement(query);
+            statement1.setInt(1, content.getId());
+            resultSet = statement1.executeQuery();
+
+            while(resultSet.next())
+            {
+                query = "update contentsinfo set contents_base_html = ? , contents_base_styles = ?  ,contents_base_js = ?,contents_root_folder_location = ?   where contents_id = ?";
+                statement1 = connection.prepareStatement(query);
+                statement1.setString(1, content.getBaseHTML());
+                statement1.setString(2, content.getBaseStyles());
+                statement1.setString(3, content.getBaseJS());
+                statement1.setString(4, content.getRootLocation());
+                statement1.setInt(5, content.getId());
+                statement1.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
 }

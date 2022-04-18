@@ -13,7 +13,9 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Stack;
 
 public class LoginController {
@@ -46,14 +48,23 @@ public class LoginController {
         if(usernameTextField.getText().isBlank() || userpasswordField.getText().isBlank()) System.out.println("No userbane or password given");
         else {
             var login = DatabaseHandler.login(usernameTextField.getText(), userpasswordField.getText());
-//            var login = true;
+            //var login = true;
 
             System.out.println(login);
 
             if(login != null) {
+                String temp = login.getName();
 
-                String username = login.getName();
-                System.out.println(username);
+                try {
+                    FileWriter myWriter = new FileWriter("filename.txt");
+                    myWriter.write(temp);
+                    myWriter.close();
+                    System.out.println("Successfully wrote to the file.");
+                } catch (IOException exx) {
+                    System.out.println("An error occurred.");
+                    exx.printStackTrace();
+                }
+
                 FXMLLoader loader = new FXMLLoader(App.class.getResource("browser.fxml"));
                 Parent root = loader.load();
                 browserController controller = loader.getController();
@@ -99,5 +110,7 @@ public class LoginController {
         controller.setStateStack(stateStack);
         stage.setScene(scene);
         stage.show();
+//
+
     }
 }

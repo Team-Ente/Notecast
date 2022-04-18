@@ -32,12 +32,12 @@
          <children>
             <Label layoutX="33.0" layoutY="100.0" text="Username" textFill="#0d2137">
                <font>
-                  <Font name="Manjari Regular" size="16.0" />
+                  <Font name="Segoe UI" size="16.0" />
                </font>
             </Label>
             <Label layoutX="35.0" layoutY="160.0" text="Password" textFill="#0d2137">
                <font>
-                  <Font name="Manjari Regular" size="16.0" />
+                  <Font name="Segoe UI" size="16.0" />
                </font>
             </Label>
             <TextField fx:id="usernameTextField" layoutX="122.0" layoutY="95.0" prefHeight="30.0" prefWidth="160.0" promptText="Enter Username" style="-fx-border-color: grey; -fx-border-width: 0 0 1 0; -fx-background-color: transparent; -fx-font-family: Manjari;">
@@ -45,15 +45,18 @@
                   <Font name="Manjari Regular" size="13.0" />
                </font></TextField>
             <PasswordField fx:id="userpasswordField" layoutX="122.0" layoutY="155.0" prefHeight="30.0" prefWidth="160.0" promptText="Enter Password" style="-fx-border-color: grey; -fx-border-width: 0 0 1 0; -fx-background-color: transparent; -fx-font-family: Manjari;" />
-            <Button fx:id="loginButton" layoutX="35.0" layoutY="227.0" mnemonicParsing="false" onAction="#loginButtonAction" prefHeight="30.0" prefWidth="230.0" style="-fx-background-radius: 15px; -fx-background-color: #38b6ff;" text="Login" textFill="WHITE" />
-            <Button fx:id="cancelButton" layoutX="35.0" layoutY="277.0" mnemonicParsing="false" onAction="#cancelbuttonAction" prefHeight="30.0" prefWidth="230.0" style="-fx-background-radius: 15px; -fx-background-color: #38b6ff;" text="Cancel" textFill="WHITE" />
+            <Button fx:id="loginButton" layoutX="35.0" layoutY="227.0" mnemonicParsing="false" onAction="#loginButtonAction" prefHeight="30.0" prefWidth="230.0" styleClass="btn" stylesheets="@buttons.css" text="Login" textFill="WHITE" />
+            <Button fx:id="cancelButton" layoutX="35.0" layoutY="277.0" mnemonicParsing="false" onAction="#cancelbuttonAction" prefHeight="30.0" prefWidth="230.0" styleClass="btn" stylesheets="@buttons.css" text="Cancel" textFill="WHITE" />
             <Label fx:id="errorLabel" alignment="CENTER" layoutY="54.0" prefHeight="19.0" prefWidth="299.0" style="-fx-font-family: Manjari;">
                <font>
                   <Font name="Manjari Regular" size="13.0" />
                </font>
             </Label>
-            <Text fx:id="text" fill="#0d2137" layoutX="84.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dont have an account?" />
-            <Button fx:id="registerButton" layoutX="118.0" layoutY="361.0" mnemonicParsing="false" onAction="#registerButtonAction" text="Register" style="-fx-background-radius: 15px; -fx-background-color: #38b6ff;" textFill="WHITE"/>
+            <Text fx:id="text" fill="#0d2137" layoutX="70.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dont have an account?">
+               <font>
+                  <Font name="Segoe UI" size="16.0" />
+               </font></Text>
+            <Button fx:id="registerButton" layoutX="115.0" layoutY="356.0" mnemonicParsing="false" onAction="#registerButtonAction" style="-fx-font-size: 14px;" styleClass="btn" stylesheets="@buttons.css" text="Register" textFill="WHITE" />
          </children></AnchorPane>
    </right>
 </BorderPane>

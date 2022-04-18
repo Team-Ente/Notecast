@@ -14,11 +14,17 @@ import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
 import javafx.scene.control.Button;
+import org.w3c.dom.Text;
 
 
+import java.awt.*;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.Stack;
+import java.util.Scanner;
 
 public class browserController {
     Stack<Scene> stateStack;
@@ -37,46 +43,26 @@ public class browserController {
     private Button exit;
     public void newNoteAction(ActionEvent e) throws IOException {
         System.out.println("New Note Created");
-                FXMLLoader loader = new FXMLLoader(App.class.getResource("editor.fxml"));
+                FXMLLoader loader = new FXMLLoader(App.class.getResource("notebookdata.fxml"));
                 Parent root = loader.load();
-                EditorController controller = loader.getController();
+                notebookdataController controller = loader.getController();
                 Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
                 Scene scene = new Scene(root);
                 stage.setScene(scene);
                 stateStack.push(scene);
                 stage.show();
-                stage.setOnCloseRequest(windowEvent -> {
-                    windowEvent.consume();
-                    Alert alert = new Alert(Alert.AlertType.NONE);
-                    alert.getButtonTypes().addAll(ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
-                    alert.setTitle("Exit");
-                    alert.setHeaderText("Do you want save the document?");
-                    ButtonType buttonType = alert.showAndWait().get();
-                    if (ButtonType.YES.equals(buttonType)) {
-                        try {
-                            controller.exit(e);
-                        } catch (IOException ex) {
-                            ex.printStackTrace();
-                        }
-
-                        stateStack.pop();
-                        stage.setScene(stateStack.peek());
-                    } else if (ButtonType.NO.equals(buttonType)) {
-                        stateStack.pop();
-                        stage.setScene(stateStack.peek());
-                    }
-                    stage.setOnCloseRequest(null);
-                });
     }
     public void browseNoteAction(ActionEvent e) throws IOException {
         System.out.println("Browsing Notebooks");
         FXMLLoader loader = new FXMLLoader(App.class.getResource("notebook_list.fxml"));
         Parent root = loader.load();
         NotebookListController controller = loader.getController();
+        User user = null;
         controller.setUser(user);
         Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        Deque<Scene> stateStack = null;
         stateStack.push(scene);
         stage.show();
     }
