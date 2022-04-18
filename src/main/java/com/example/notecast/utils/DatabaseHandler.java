@@ -9,7 +9,7 @@ public class DatabaseHandler {
     public static User login(String user_email, String user_password)
     {
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/notecastdbbeta", "root", "yokipasa");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/notecastdbbeta", "root", "8664");
 //            Connection connection = DriverManager.getConnection("jdbc:neo4j+s://a1264504.databases.neo4j.io:7687/notecastdbbeta",
 //                    "neo4j", "9l54kNHf5dMxrTgswgUt3guVSJ_Mm3z9ad3tYEn4dw4");
 
@@ -147,7 +147,7 @@ public class DatabaseHandler {
     public static User signup(String user_name, String user_email, String user_password , String user_profession)
     {
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/notecastdbbeta", "root", "yokipasa");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/notecastdbbeta", "root", "8664");
            // Connection connection = DriverManager.getConnection("jdbc:neo4j+s://a1264504.databases.neo4j.io:7687/notecastdbbeta",
                   //  "neo4j", "9l54kNHf5dMxrTgswgUt3guVSJ_Mm3z9ad3tYEn4dw4");
 
@@ -211,7 +211,7 @@ public class DatabaseHandler {
     {
         // return user object
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/notecastdbbeta", "root", "yokipasa");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/notecastdbbeta", "root", "8664");
             Statement statement = connection.createStatement();
 
             String query;
@@ -244,7 +244,7 @@ public class DatabaseHandler {
     {
         // write from user object to database
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/notecastdbbeta", "root", "yokipasa");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/notecastdbbeta", "root", "8664");
             Statement statement = connection.createStatement();
 
             String query;
@@ -323,7 +323,7 @@ public class DatabaseHandler {
     public static Content createContent(String baseHtml, String baseStyle, String baseJs, String rootFolderLocation, int topicID)
     {
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/notecastdbbeta", "root", "yokipasa");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/notecastdbbeta", "root", "8664");
             Statement statement = connection.createStatement();
 
             String query;
@@ -360,7 +360,7 @@ public class DatabaseHandler {
     {
 
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/notecastdbbeta", "root", "yokipasa");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/notecastdbbeta", "root", "8664");
             Statement statement = connection.createStatement();
 
             String query;
@@ -390,11 +390,11 @@ public class DatabaseHandler {
         return null;
     }
 
-    public static Topic createNotebook(String title,int priority, Timestamp dateCreated, Timestamp lastEdit , String usermail, Topic topic)
+    public static Notebook createNotebook(String title,int priority, Timestamp dateCreated, Timestamp lastEdit , String usermail, Topic topic)
     {
 
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/notecastdbbeta", "root", "yokipasa");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/notecastdbbeta", "root", "8664");
             Statement statement = connection.createStatement();
 
             String query;
@@ -414,9 +414,9 @@ public class DatabaseHandler {
             statement1 = connection.prepareStatement(query);
             resultSet = statement1.executeQuery();
 
-            int topicid = resultSet.getInt("topic_id");
+            int notebookid = resultSet.getInt("notebook_id");
 
-            //return new Topic(topicid, title, dateCreated, lastEdit, notebookid, content);
+            return new Notebook(notebookid, title, priority,dateCreated, lastEdit,usermail, null);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -427,7 +427,7 @@ public class DatabaseHandler {
     public static boolean writeContent(Content content)
     {
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/notecastdbbeta", "root", "yokipasa");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/notecastdbbeta", "root", "8664");
             Statement statement = connection.createStatement();
 
             String query;
