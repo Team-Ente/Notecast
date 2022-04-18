@@ -1,21 +1,16 @@
 package com.example.notecast.controllers;
 
-import com.example.notecast.App;
 import com.example.notecast.models.database.Notebook;
-import com.example.notecast.models.database.NotesCellFactory;
 import com.example.notecast.models.database.Topic;
 import com.example.notecast.models.database.User;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
-import javafx.util.Callback;
 
-import javax.swing.text.html.ListView;
 import java.awt.event.ActionEvent;
 import java.util.Stack;
 
@@ -30,7 +25,7 @@ public class NotebookListController {
             new ImageView(new Image(getClass().getResourceAsStream("/image/root.png")));
 
     TreeItem<String> rootNode =
-            new TreeItem<>( "\'s Notebooks", rootIcon);
+            new TreeItem<>( user.getName() + "\'s Notebooks", rootIcon);
 
     @FXML
     TreeView<String> notesTreeView;
@@ -53,7 +48,7 @@ public class NotebookListController {
         }
 
         notesTreeView.setEditable(true);
-        notesTreeView.setCellFactory(p -> new NotesCellFactory());
+//        notesTreeView.setCellFactory(p -> new );
     }
 
 
