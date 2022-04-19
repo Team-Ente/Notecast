@@ -1,8 +1,8 @@
 package com.example.notecast.controllers;
 
 import com.example.notecast.App;
-import com.example.notecast.models.database.User;
 import com.example.notecast.utils.DatabaseHandler;
+import com.example.notecast.utils.StateManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,19 +10,16 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Stack;
 
 import static com.example.notecast.utils.DatabaseHandler.getHash;
 
 public class LoginController {
-    Stack<Scene> stateStack;
-    public void setStateStack(Stack<Scene> stStack){ stateStack = stStack;}
+
 //    @FXML
 //    private ImageView notecastImageview;
 //    @FXML
@@ -52,31 +49,30 @@ public class LoginController {
 
             // use hash function , use email as salt value
 
-            var login = DatabaseHandler.login(usernameTextField.getText(), getHash(userpasswordField.getText()));
-            //var login = true;
+//            var login = DatabaseHandler.login(usernameTextField.getText(), getHash(userpasswordField.getText()));
+            var login = true;
 
             System.out.println(login);
 
-            if(login != null) {
-                String temp = login.getName();
-
-                try {
-                    FileWriter myWriter = new FileWriter("filename.txt");
-                    myWriter.write(temp);
-                    myWriter.close();
-                    System.out.println("Successfully wrote to the file.");
-                } catch (IOException exx) {
-                    System.out.println("An error occurred.");
-                    exx.printStackTrace();
-                }
+            if(login ) {
+//                String temp = login.getName();
+//
+//                try {
+//                    FileWriter myWriter = new FileWriter("filename.txt");
+//                    myWriter.write(temp);
+//                    myWriter.close();
+//                    System.out.println("Successfully wrote to the file.");
+//                } catch (IOException exx) {
+//                    System.out.println("An error occurred.");
+//                    exx.printStackTrace();
+//                }
 
                 FXMLLoader loader = new FXMLLoader(App.class.getResource("browser.fxml"));
                 Parent root = loader.load();
-                browserController controller = loader.getController();
+                BrowserController controller = loader.getController();
                 stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
                 scene = new Scene(root);
-                stateStack.push(scene);
-                controller.setStateStack(stateStack);
+                StateManager.push(scene);
 //                controller.setUser(login);
                 stage.setScene(scene);
                 stage.show();
@@ -108,11 +104,9 @@ public class LoginController {
     public void registerButtonAction(ActionEvent e) throws IOException {
         FXMLLoader loader = new FXMLLoader(App.class.getResource("register.fxml"));
         Parent root = loader.load();
-        RegisterController controller = loader.getController();
         stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         scene = new Scene(root);
-        stateStack.push(scene);
-        controller.setStateStack(stateStack);
+        StateManager.push(scene);
         stage.setScene(scene);
         stage.show();
 //
