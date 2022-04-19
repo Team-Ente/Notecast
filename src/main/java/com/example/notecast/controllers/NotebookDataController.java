@@ -1,7 +1,11 @@
 package com.example.notecast.controllers;
 
 import com.example.notecast.App;
+import com.example.notecast.models.database.Content;
+import com.example.notecast.models.database.Notebook;
+import com.example.notecast.models.database.Topic;
 import com.example.notecast.models.database.User;
+import com.example.notecast.utils.DatabaseHandler;
 import com.example.notecast.utils.StateManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,6 +21,8 @@ import javafx.stage.Stage;
 import javax.swing.plaf.nimbus.State;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.Stack;
 
 public class NotebookDataController {
@@ -57,6 +63,13 @@ public class NotebookDataController {
                 try {
                     File savedFile = controller.exit(e);
 
+                    Notebook notebook = DatabaseHandler.createNotebook(notebooktitle.getText(), Integer.parseInt(notebookPriority.getText()), Timestamp.from(Instant.now()), Timestamp.from(Instant.now()), user.getEmail(), null);
+                    Topic topic = DatabaseHandler.createTopic(topicTitle.getText(), Timestamp.from(Instant.now()), Timestamp.from(Instant.now()), notebook.getId(), null);
+                    Content content = DatabaseHandler.createContent(savedFile.getName(), null, null, savedFile.getParent(), topic.getId());
+
+                    topic.setContent(content);
+                    notebook.addTopic(topic);
+                    user.addNotebook(notebook);
 
                 } catch (IOException ex) {
                     ex.printStackTrace();

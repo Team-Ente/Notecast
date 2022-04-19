@@ -18,7 +18,14 @@ public class User {
         this.password = password;
         this.profession = profession;
         this.qos = qos;
-        this.notebooks = notebooks;
+        if(notebooks == null)
+            this.notebooks = new ArrayList<>();
+        else
+            this.notebooks = notebooks;
+    }
+
+    public void addNotebook(Notebook notebook) {
+        this.notebooks.add(notebook);
     }
 
     public String getName() {

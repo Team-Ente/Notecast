@@ -26,7 +26,7 @@ public class Topic {
     final Timestamp timeCreated;
     final Timestamp lastEdited;
     final int notebookId;
-    final Content content;
+    private Content content;
 
     final Button open;
 
@@ -92,6 +92,10 @@ public class Topic {
 
     public Button getOpen() {
         return open;
+    }
+
+    public void setContent(Content content) {
+        this.content = content;
     }
 
     public int getId() {

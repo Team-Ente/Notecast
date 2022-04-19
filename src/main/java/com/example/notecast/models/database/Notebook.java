@@ -36,7 +36,10 @@ public class Notebook {
         this.timeCreated = timeCreated;
         this.lastEdited = lastEdited;
         this.userEmail = userEmail;
-        this.topics = topics;
+        if(topics == null)
+            this.topics = new ArrayList<>();
+        else
+            this.topics = topics;
         this.open = new Button("Open");
         open.setOnAction(e -> {
             System.out.println(title);
