@@ -34,9 +34,6 @@ import java.util.Stack;
 import java.util.concurrent.ExecutionException;
 
 public class EditorController {
-    Stack<Scene> stateStack;
-    public void setStateStack(Stack<Scene> stStack){ stateStack = stStack;}
-
     File openFile = null;
 
     @FXML

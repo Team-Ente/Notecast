@@ -132,7 +132,7 @@ public class DatabaseHandler {
                             String basejs = resultSetContent.getString("contents_base_js");
                             String rootfolderlocation = resultSetContent.getString("contents_root_folder_location");
 
-                            content = new Content(contentid, baseStyles, basehtml,basejs, rootfolderlocation);
+                            content = new Content(contentid, basehtml, baseStyles,basejs, rootfolderlocation);
                         }
                         topics.add(new Topic(topicid , topic_title , topic_date_created , topic_last_edit , notebookid, content));
                     }

@@ -42,14 +42,15 @@ public class Topic {
         open.setOnAction(e -> {
 
             //test
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Open File");
-            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text Files", "*.html"));
-            File selectedFile = fileChooser.showOpenDialog(((Node) e.getSource()).getScene().getWindow());
+//            FileChooser fileChooser = new FileChooser();
+//            fileChooser.setTitle("Open File");
+//            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text Files", "*.html"));
+//            File selectedFile = fileChooser.showOpenDialog(((Node) e.getSource()).getScene().getWindow());
 
-            System.out.println(selectedFile.getParent() + "\\" + selectedFile.getName());
+            //System.out.println(selectedFile.getParent() + "\\" + selectedFile.getName());
 
-//            File selectedFile = new File(content.rootLocation, content.baseHTML);
+//            System.out.println(content.baseHTML);
+            File selectedFile = new File(content.rootLocation, content.baseHTML);
             FXMLLoader loader = new FXMLLoader(App.class.getResource("editor.fxml"));
             Parent root = null;
             try {

@@ -5,6 +5,7 @@ import com.example.notecast.models.database.Content;
 import com.example.notecast.models.database.Notebook;
 import com.example.notecast.models.database.Topic;
 import com.example.notecast.models.database.User;
+import com.example.notecast.utils.DatabaseHandler;
 import com.example.notecast.utils.StateManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -101,9 +102,10 @@ public class NotebookMenuController {
                 try {
                     File selectedFile = controller.exit(e);
                     //TODO: save selectedFile information to Notebook data
-                    notebook.addTopic(new Topic(notebook.getId()*100, selectedFile.getName(), Timestamp.from(Instant.now()),
-                            Timestamp.from(Instant.now()), notebook.getId(),
-                            new Content(notebook.getId()*100, selectedFile.getName(), null, null, selectedFile.getParent())));
+                    Topic topic = DatabaseHandler.createTopic(selectedFile.getName(),Timestamp.from(Instant.now()), Timestamp.from(Instant.now()), notebook.getId(), null);
+                    Content content = DatabaseHandler.createContent(selectedFile.getName(),null, null, selectedFile.getParent(), topic.getId());
+                    topic.setContent(content);
+                    notebook.addTopic(topic);
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
@@ -145,9 +147,10 @@ public class NotebookMenuController {
                     try {
                         controller.exit(e);
                         //TODO: save selectedFile information to Notebook data
-                        notebook.addTopic(new Topic(notebook.getId()*100, selectedFile.getName(), Timestamp.from(Instant.now()),
-                                Timestamp.from(Instant.now()), notebook.getId(),
-                                new Content(notebook.getId()*100, selectedFile.getName(), null, null, selectedFile.getParent())));
+                        Topic topic = DatabaseHandler.createTopic(selectedFile.getName(),Timestamp.from(Instant.now()), Timestamp.from(Instant.now()), notebook.getId(), null);
+                        Content content = DatabaseHandler.createContent(selectedFile.getName(),null, null, selectedFile.getParent(), topic.getId());
+                        topic.setContent(content);
+                        notebook.addTopic(topic);
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
