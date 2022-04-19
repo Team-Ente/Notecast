@@ -8,14 +8,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.notecast.controllers.notebookdataController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.notecast.controllers.NotebookDataController">
    <children>
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="58.0" layoutY="119.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../Image/1.png" />
          </image>
       </ImageView>
-      <TextField fx:id="notebooktitle" layoutX="396.0" layoutY="85.0" prefHeight="40.0" prefWidth="170.0" style="-fx-border-color: grey; -fx-border-width: 0 0 1 0; -fx-background-color: transparent; -fx-font-family: Manjari; -fx-font-size: 18;" />
+      <TextField fx:id="notebookTitle" layoutX="396.0" layoutY="85.0" prefHeight="40.0" prefWidth="170.0" style="-fx-border-color: grey; -fx-border-width: 0 0 1 0; -fx-background-color: transparent; -fx-font-family: Manjari; -fx-font-size: 18;" />
       <TextField fx:id="topicTitle" layoutX="396.0" layoutY="160.0" prefHeight="26.0" prefWidth="170.0" style="-fx-border-color: grey; -fx-border-width: 0 0 1 0; -fx-background-color: transparent; -fx-font-family: Manjari; -fx-font-size: 18;" />
       <TextField fx:id="notebookPriority" layoutX="396.0" layoutY="235.0" prefHeight="26.0" prefWidth="170.0" style="-fx-border-color: grey; -fx-border-width: 0 0 1 0; -fx-background-color: transparent; -fx-font-family: Manjari; -fx-font-size: 18;" />
       <Label layoutX="257.0" layoutY="94.0" text="Notebook Title">

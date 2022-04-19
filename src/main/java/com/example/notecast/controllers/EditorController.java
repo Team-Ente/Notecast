@@ -37,6 +37,8 @@ public class EditorController {
     Stack<Scene> stateStack;
     public void setStateStack(Stack<Scene> stStack){ stateStack = stStack;}
 
+    File openFile = null;
+
     @FXML
     private HTMLEditor htmlEditor;
 
@@ -118,6 +120,7 @@ public class EditorController {
 
 
     public void openNotes(File file) {
+        this.openFile = file;
         StringBuilder html = new StringBuilder();
         FileReader fileReader = null;
         try {
@@ -267,16 +270,18 @@ public class EditorController {
 
     }
 
-    public void exit(ActionEvent e) throws IOException {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Save File As");
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text Files", "*.html"));
-        File selectedFile = fileChooser.showSaveDialog(((Node) e.getSource()).getScene().getWindow());
-        if (selectedFile != null) {
-            PrintWriter writer = new PrintWriter(selectedFile.getAbsolutePath(), StandardCharsets.UTF_8);
+    public File exit(ActionEvent e) throws IOException {
+        if(openFile == null) {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Save File As");
+            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text Files", "*.html"));
+            openFile = fileChooser.showSaveDialog(((Node) e.getSource()).getScene().getWindow());
+        }
+        if (openFile != null) {
+            PrintWriter writer = new PrintWriter(openFile.getAbsolutePath(), StandardCharsets.UTF_8);
             writer.println(htmlEditor.getHtmlText());
             writer.close();
         }
-
+        return openFile;
     }
 }

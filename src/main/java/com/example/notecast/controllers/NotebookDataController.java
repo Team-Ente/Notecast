@@ -1,9 +1,6 @@
 package com.example.notecast.controllers;
 
 import com.example.notecast.App;
-import com.example.notecast.models.database.Notebook;
-import com.example.notecast.utils.*;
-import com.example.notecast.models.database.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,15 +11,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
-import java.util.Deque;
 import java.util.Stack;
 
-import static com.example.notecast.utils.DatabaseHandler.createNotebook;
-
-public class notebookdataController {
+public class NotebookDataController {
     Stack<Scene> stateStack;
     public void setStateStack(Stack<Scene> stStack){ stateStack = stStack;}
 

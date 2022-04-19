@@ -1,6 +1,7 @@
 package com.example.notecast.controllers;
 
 import com.example.notecast.utils.DatabaseHandler;
+import com.example.notecast.utils.StateManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -19,8 +20,6 @@ import static com.example.notecast.utils.DatabaseHandler.getHash;
 import static com.example.notecast.utils.DatabaseHandler.signup;
 
 public class RegisterController {
-    Stack<Scene> stateStack;
-    public void setStateStack(Stack<Scene> stStack){ stateStack = stStack;}
 
     @FXML
     private TextField usernameTextField;
@@ -113,8 +112,8 @@ public class RegisterController {
     public void cancelbuttonAction(ActionEvent e)
     {
         Stage stage = (Stage)cancelButton.getScene().getWindow();
-        stateStack.pop();
-        stage.setScene(stateStack.peek());
+        StateManager.pop();
+        stage.setScene(StateManager.peek());
     }
 
 }

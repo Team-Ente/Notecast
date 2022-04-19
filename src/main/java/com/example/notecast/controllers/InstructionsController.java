@@ -1,5 +1,6 @@
 package com.example.notecast.controllers;
 
+import com.example.notecast.utils.StateManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -8,17 +9,13 @@ import javafx.stage.Stage;
 
 import java.util.Stack;
 
-public class instructionsController {
+public class InstructionsController {
     @FXML
     public Button returnButton;
 
-    Stack<Scene> stateStack;
-    public void setStateStack(Stack<Scene> stStack){ stateStack = stStack;}
-
     public void returnAction(ActionEvent actionEvent) {
         Stage stage = (Stage)returnButton.getScene().getWindow();
-        stateStack.pop();
-        stage.setScene(stateStack.peek());
-        stage.setOnCloseRequest(null);
+        StateManager.pop();
+        stage.setScene(StateManager.peek());
     }
 }

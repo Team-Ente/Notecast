@@ -1,6 +1,7 @@
 package com.example.notecast;
 
 import com.example.notecast.controllers.LoginController;
+import com.example.notecast.utils.StateManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,16 +15,13 @@ import java.util.Stack;
 public class App extends Application {
     @Override
     public void start(Stage stage) {
-        Stack<Scene> stateStack = new Stack<>();
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
             Parent root = loader.load();
-            LoginController controller = loader.getController();
             Scene scene = new Scene(root, 600, 400);
             stage.setScene(scene);
-            stateStack.push(scene);
-            controller.setStateStack(stateStack);
+            StateManager.push(scene);
             stage.getIcons().add(new Image(getClass().getResourceAsStream("/image/icon.png")));
             stage.setTitle("NoteCast");
             stage.show();
