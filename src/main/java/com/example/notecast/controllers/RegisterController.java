@@ -77,7 +77,7 @@ public class RegisterController {
         }
         else
         {
-            if(password != confirmPassword)
+            if(!password.equals(confirmPassword))
             {
                 System.out.println("Passwords didn't match");
                 isRight = false;
@@ -96,7 +96,7 @@ public class RegisterController {
 
         if(isRight)
         {
-            var user = signup(usernameTextField.getText(), emailTextField.getText(), professionTextField.getText(), passwordField.getText());
+            var user = signup(usernameTextField.getText(),emailTextField.getText(), getHash((passwordField.getText())), professionTextField.getText() );
         }
 
         //TODO: implement form validation
@@ -105,8 +105,7 @@ public class RegisterController {
         System.out.println(professionTextField.getText());
         System.out.println(passwordField.getText());
         System.out.println(confirmpasswordField.getText());
-        var user = signup(usernameTextField.getText(),emailTextField.getText(), getHash((passwordField.getText())), professionTextField.getText() );
-        System.out.println(user);
+        //System.out.println(user);
         cancelbuttonAction(e);
     }
     public void cancelbuttonAction(ActionEvent e)

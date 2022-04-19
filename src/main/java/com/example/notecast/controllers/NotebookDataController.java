@@ -33,7 +33,6 @@ public class NotebookDataController {
         System.out.println(Integer.parseInt(notebookPriority.getText()));
 
 
-
         System.out.println("New Note Created");
         FXMLLoader loader = new FXMLLoader(App.class.getResource("editor.fxml"));
         Parent root = loader.load();
