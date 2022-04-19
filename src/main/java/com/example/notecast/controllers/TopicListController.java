@@ -75,12 +75,13 @@ public class TopicListController {
 
         ObservableList<Topic> data = FXCollections.observableArrayList();
 
-//        data.addAll(notebook.getTopics());
-        data.add(new Topic(1, "DLD", Timestamp.from(Instant.now()), Timestamp.from(Instant.now()), notebook.getId(), null));
+        data.addAll(notebook.getTopics());
+
+        /*data.add(new Topic(1, "DLD", Timestamp.from(Instant.now()), Timestamp.from(Instant.now()), notebook.getId(), null));
         data.add(new Topic(2, "DS", Timestamp.from(Instant.now()), Timestamp.from(Instant.now()), notebook.getId(), null));
         data.add(new Topic(3, "COA", Timestamp.from(Instant.now()), Timestamp.from(Instant.now()), notebook.getId(), null));
         data.add(new Topic(4, "EEE", Timestamp.from(Instant.now()), Timestamp.from(Instant.now()), notebook.getId(), null));
-
+        */
 
         noteTableView.setItems(data);
     }

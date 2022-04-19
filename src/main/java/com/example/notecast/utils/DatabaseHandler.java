@@ -403,7 +403,7 @@ public class DatabaseHandler {
             resultSet = statement1.getGeneratedKeys();
             resultSet.next();
 
-            int topicid = resultSet.getInt("topic_id");
+            int topicid = resultSet.getInt(1);
 
             return new Topic(topicid, title, dateCreated, lastEdit, notebookid, content);
         } catch (SQLException e) {
