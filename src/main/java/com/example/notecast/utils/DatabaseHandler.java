@@ -80,7 +80,6 @@ public class DatabaseHandler {
             {
                 // add notebooks
                 ArrayList<Notebook> notebooks = new ArrayList<>();
-                notebooks = null;
 
 
                 query = "select * from notebookinfo where user_email = ?";
@@ -92,7 +91,7 @@ public class DatabaseHandler {
                 while(resultSetNotebook.next())
                 {
                     ArrayList<Topic> topics = new ArrayList<>();
-                    topics = null;
+                    //topics = null;
                     int notebookid = resultSetNotebook.getInt("notebook_id");
                     String notebooktitle = resultSetNotebook.getString("notebook_title");
                     int notebookpriority = resultSetNotebook.getInt("notebook_priority");
@@ -114,11 +113,11 @@ public class DatabaseHandler {
                         String topic_title = resultSetTopic.getString("topic_title");
                         Timestamp topic_date_created = resultSetTopic.getTimestamp("topic_date_created");
                         Timestamp topic_last_edit = resultSetTopic.getTimestamp("topic_last_edit");
-                        int content_id = resultSetTopic.getInt("contents_id");
+                        //int content_id = resultSetTopic.getInt("contents_id");
 
-                        query = "select * from contentsinfo where contents_id = ?";
+                        query = "select * from contentsinfo where topic_id = ?";
                         statement1 = connection.prepareStatement(query);
-                        statement1.setInt(1, content_id);
+                        statement1.setInt(1, topicid);
                         ResultSet resultSetContent = statement1.executeQuery();
 
                         Content content = null;
@@ -355,7 +354,7 @@ public class DatabaseHandler {
             PreparedStatement statement1;
             ResultSet resultSet;
 
-            query = "insert into contentinfo (contents_base_html,contents_base_styles,contents_base_js,contents_root_folder_lcoation, topic_id) values (? , ? , ? , ?, ?)";
+            query = "insert into contentsinfo (contents_base_html,contents_base_styles,contents_base_js,contents_root_folder_location, topic_id) values (? , ? , ? , ?, ?)";
             statement1 = connection.prepareStatement(query);
             statement1.setString(1, baseHtml);
             statement1.setString(2, baseStyle);
@@ -364,14 +363,15 @@ public class DatabaseHandler {
             statement1.setInt(5, topicID);
             statement1.executeUpdate();
 
-            query = "select * from content_info where topic_id = ?";
+            query = "select * from contentsinfo where topic_id = ?";
             statement1 = connection.prepareStatement(query);
             statement1.setInt(1, topicID);
             resultSet = statement1.executeQuery();
 
             int contentId;
+            resultSet.next();
 
-            contentId = resultSet.getInt("content_id");
+            contentId = resultSet.getInt("contents_id");
 
             return new Content(contentId , baseHtml , baseJs, baseStyle , rootFolderLocation);
         } catch (SQLException e) {
@@ -392,7 +392,7 @@ public class DatabaseHandler {
             PreparedStatement statement1;
             ResultSet resultSet;
 
-            query = "insert into topictinfo (topic_title ,topic_date_created,topic_last_edit,notebook_id) values ( ? , ? , ? , ?)";
+            query = "insert into topicinfo (topic_title ,topic_date_created,topic_last_edit,notebook_id) values ( ? , ? , ? , ?)";
             statement1 = connection.prepareStatement(query);
             statement1.setString(1, title);
             statement1.setTimestamp(2, dateCreated);
@@ -400,10 +400,11 @@ public class DatabaseHandler {
             statement1.setInt(4, notebookid);
             statement1.executeUpdate();
 
-            query = "select * from content_info where notebook_id = ?";
+            query = "select * from topicinfo where notebook_id = ?";
             statement1 = connection.prepareStatement(query);
             statement1.setInt(1, notebookid);
             resultSet = statement1.executeQuery();
+            resultSet.next();
 
             int topicid = resultSet.getInt("topic_id");
 
@@ -426,8 +427,8 @@ public class DatabaseHandler {
             PreparedStatement statement1;
             ResultSet resultSet;
 
-            query = "insert into notebookinfo (notebook_titile ,notebook_priority,notebook_date_created,notebook_last_edit,user_email) values ( ? , ? , ? , ?, ?)";
-            statement1 = connection.prepareStatement(query);
+            query = "insert into notebookinfo (notebook_title ,notebook_priority,notebook_date_created,notebook_last_edit,user_email) values ( ? , ? , ? , ?, ?)";
+            statement1 = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             statement1.setString(1, title);
             statement1.setInt(2, priority);
             statement1.setTimestamp(3, dateCreated);
@@ -435,11 +436,10 @@ public class DatabaseHandler {
             statement1.setString(5,usermail);
             statement1.executeUpdate();
 
-            query = "select * from notebook_info where user_email = ?";
-            statement1 = connection.prepareStatement(query);
-            resultSet = statement1.executeQuery();
+            resultSet = statement1.getGeneratedKeys();
+            resultSet.next();
 
-            int notebookid = resultSet.getInt("notebook_id");
+            int notebookid = resultSet.getInt(1);
 
             return new Notebook(notebookid, title, priority,dateCreated, lastEdit,usermail, null);
         } catch (SQLException e) {
@@ -459,7 +459,7 @@ public class DatabaseHandler {
             PreparedStatement statement1;
             ResultSet resultSet;
 
-            query = "select * from contentinfo where content_id = ?";
+            query = "select * from contentsinfo where content_id = ?";
             statement1 = connection.prepareStatement(query);
             statement1.setInt(1, content.getId());
             resultSet = statement1.executeQuery();

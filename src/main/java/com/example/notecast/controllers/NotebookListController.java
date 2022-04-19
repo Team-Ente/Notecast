@@ -19,7 +19,10 @@ import java.util.ArrayList;
 public class NotebookListController {
 
     User user;
-    public void setUser(User u){ user = u;}
+    public void setUser(User u){
+        user = u;
+        loadData();
+    }
 
     @FXML
     private Button back;
@@ -50,7 +53,6 @@ public class NotebookListController {
             stage.setScene(StateManager.peek());
         });
         initTable();
-        loadData();
     }
 
     private void initTable() {
@@ -70,11 +72,11 @@ public class NotebookListController {
 
         ObservableList<Notebook> data = FXCollections.observableArrayList();
 
-//        data.addAll(user.getNotebooks());
-        data.add(new Notebook(1, "DLD", 0, Timestamp.from(Instant.now()), Timestamp.from(Instant.now()), null, new ArrayList<>()));
-        data.add(new Notebook(2, "DS", 1, Timestamp.from(Instant.now()), Timestamp.from(Instant.now()), null, new ArrayList<>()));
-        data.add(new Notebook(3, "COA", 2, Timestamp.from(Instant.now()), Timestamp.from(Instant.now()), null, new ArrayList<>()));
-        data.add(new Notebook(4, "EEE", 9, Timestamp.from(Instant.now()), Timestamp.from(Instant.now()), null, new ArrayList<>()));
+        data.addAll(user.getNotebooks());
+//        data.add(new Notebook(1, "DLD", 0, Timestamp.from(Instant.now()), Timestamp.from(Instant.now()), null, new ArrayList<>()));
+//        data.add(new Notebook(2, "DS", 1, Timestamp.from(Instant.now()), Timestamp.from(Instant.now()), null, new ArrayList<>()));
+//        data.add(new Notebook(3, "COA", 2, Timestamp.from(Instant.now()), Timestamp.from(Instant.now()), null, new ArrayList<>()));
+//        data.add(new Notebook(4, "EEE", 9, Timestamp.from(Instant.now()), Timestamp.from(Instant.now()), null, new ArrayList<>()));
 
 
         noteTableView.setItems(data);

@@ -4,6 +4,7 @@ import com.example.notecast.App;
 import com.example.notecast.models.database.Content;
 import com.example.notecast.models.database.Notebook;
 import com.example.notecast.models.database.Topic;
+import com.example.notecast.models.database.Notebook;
 import com.example.notecast.models.database.User;
 import com.example.notecast.utils.DatabaseHandler;
 import com.example.notecast.utils.StateManager;

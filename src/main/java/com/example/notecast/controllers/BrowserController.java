@@ -48,7 +48,6 @@ public class BrowserController {
         FXMLLoader loader = new FXMLLoader(App.class.getResource("notebook_list.fxml"));
         Parent root = loader.load();
         NotebookListController controller = loader.getController();
-        User user = null;
         controller.setUser(user);
         Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
