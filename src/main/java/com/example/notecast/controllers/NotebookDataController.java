@@ -31,14 +31,14 @@ public class NotebookDataController {
     public void setUser(User u){ user = u;}
 
     @FXML
-    private TextField notebooktitle;
+    private TextField notebookTitle;
     @FXML
     private TextField topicTitle;
     @FXML
     private TextField notebookPriority;
 
     public void createNotebookAction(ActionEvent e) throws IOException {
-        System.out.println(notebooktitle.getText());
+        System.out.println(notebookTitle.getText());
         System.out.println(topicTitle.getText());
         System.out.println(Integer.parseInt(notebookPriority.getText()));
 
@@ -63,7 +63,7 @@ public class NotebookDataController {
                 try {
                     File savedFile = controller.exit(e);
 
-                    Notebook notebook = DatabaseHandler.createNotebook(notebooktitle.getText(), Integer.parseInt(notebookPriority.getText()), Timestamp.from(Instant.now()), Timestamp.from(Instant.now()), user.getEmail(), null);
+                    Notebook notebook = DatabaseHandler.createNotebook(notebookTitle.getText(), Integer.parseInt(notebookPriority.getText()), Timestamp.from(Instant.now()), Timestamp.from(Instant.now()), user.getEmail(), null);
                     Topic topic = DatabaseHandler.createTopic(topicTitle.getText(), Timestamp.from(Instant.now()), Timestamp.from(Instant.now()), notebook.getId(), null);
                     Content content = DatabaseHandler.createContent(savedFile.getName(), null, null, savedFile.getParent(), topic.getId());
 
