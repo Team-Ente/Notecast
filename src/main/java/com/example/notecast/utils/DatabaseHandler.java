@@ -393,17 +393,14 @@ public class DatabaseHandler {
             ResultSet resultSet;
 
             query = "insert into topicinfo (topic_title ,topic_date_created,topic_last_edit,notebook_id) values ( ? , ? , ? , ?)";
-            statement1 = connection.prepareStatement(query);
+            statement1 = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             statement1.setString(1, title);
             statement1.setTimestamp(2, dateCreated);
             statement1.setTimestamp(3, lastEdit);
             statement1.setInt(4, notebookid);
             statement1.executeUpdate();
 
-            query = "select * from topicinfo where notebook_id = ?";
-            statement1 = connection.prepareStatement(query);
-            statement1.setInt(1, notebookid);
-            resultSet = statement1.executeQuery();
+            resultSet = statement1.getGeneratedKeys();
             resultSet.next();
 
             int topicid = resultSet.getInt("topic_id");
