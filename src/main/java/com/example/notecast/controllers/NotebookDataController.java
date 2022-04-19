@@ -1,6 +1,8 @@
 package com.example.notecast.controllers;
 
 import com.example.notecast.App;
+import com.example.notecast.models.database.User;
+import com.example.notecast.utils.StateManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,13 +14,15 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import javax.swing.plaf.nimbus.State;
+import java.io.File;
 import java.io.IOException;
 import java.util.Stack;
 
 public class NotebookDataController {
-    Stack<Scene> stateStack;
-    public void setStateStack(Stack<Scene> stStack){ stateStack = stStack;}
 
+    User user;
+    public void setUser(User u){ user = u;}
 
     @FXML
     private TextField notebooktitle;
@@ -40,7 +44,7 @@ public class NotebookDataController {
         Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        //stateStack.push(scene);
+        StateManager.push(scene);
         stage.show();
         stage.setOnCloseRequest(windowEvent -> {
             windowEvent.consume();
@@ -51,16 +55,19 @@ public class NotebookDataController {
             ButtonType buttonType = alert.showAndWait().get();
             if (ButtonType.YES.equals(buttonType)) {
                 try {
-                    controller.exit(e);
+                    File savedFile = controller.exit(e);
+
+
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
 
-                //stateStack.pop();
-                // stage.setScene(stateStack.peek());
+                StateManager.pop();
+                stage.setScene(StateManager.peek());
             } else if (ButtonType.NO.equals(buttonType)) {
-                //stateStack.pop();
-                //stage.setScene(stateStack.peek());
+
+                StateManager.pop();
+                stage.setScene(StateManager.peek());
             }
             stage.setOnCloseRequest(null);
         });
