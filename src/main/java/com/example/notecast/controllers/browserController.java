@@ -110,11 +110,25 @@ public class browserController {
     }
     public void settingsAction(ActionEvent e) throws IOException {
         System.out.println("Settings opened");
-        //heheheeee
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("settings.fxml"));
+        Parent root = loader.load();
+        settingsController controller = loader.getController();
+        controller.setStateStack(stateStack);
+        Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
     public void instructionsAction(ActionEvent e) throws IOException {
         System.out.println("Instructions Showed");
-        //who
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("instructions.fxml"));
+        Parent root = loader.load();
+        instructionsController controller = loader.getController();
+        controller.setStateStack(stateStack);
+        Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
     public void logoutAction()
     {
