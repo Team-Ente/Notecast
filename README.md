@@ -40,3 +40,4 @@ Screenshots to be added here
 Contributions, issues, and feature requests are welcome!
 
 Give a ⭐️ if you like this project!
+Watch demo: https://youtu.be/RP3Wi5rwZ0E
