@@ -20,10 +20,6 @@
 - MySQL
 - Apache PDFbox
 
-## Future Updates
-
-- [ ] Reliable Storage
-
 ## Author
 
 [**Md.Tariquzzaman**](https://github.com/Tariquzzaman-faisal "Md. Tariquzzaman")<br>
